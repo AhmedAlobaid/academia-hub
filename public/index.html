@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1E3A5F">
+<title>المنصة الأكاديمية | Academia Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   ACADEMIA HUB — DESIGN SYSTEM
+   ============================================ */
+:root{
+  --primary:#1E3A5F; --primary-dark:#0f2040; --accent:#2A9D8F; --accent-dark:#21867a;
+  --bg:#F8F9FA; --surface:#FFFFFF; --text:#1F2937; --muted:#6B7280; --border:#E5E7EB;
+  --danger:#DC2626; --warning:#D97706; --success:#059669;
+  --shadow:0 4px 6px -1px rgba(0,0,0,0.05),0 2px 4px -2px rgba(0,0,0,0.05);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,0.08),0 4px 6px -4px rgba(0,0,0,0.08);
+  --radius:8px; --radius-lg:12px;
+  --sidebar-w:260px; --header-h:64px; --bottom-nav-h:64px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{
+  font-family:'IBM Plex Sans Arabic','Inter',system-ui,-apple-system,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.6;overscroll-behavior-y:none;
+}
+[dir="ltr"] body{font-family:'Inter','IBM Plex Sans Arabic',system-ui,sans-serif;}
+[dir="rtl"] body{font-family:'IBM Plex Sans Arabic','Inter',system-ui,sans-serif;}
+button,input,textarea,select{font-family:inherit;font-size:1rem;color:inherit}
+a{text-decoration:none;color:inherit}
+::placeholder{color:#9CA3AF}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:4px}
+
+/* Typography */
+h1,h2,h3,h4{font-weight:700;color:var(--primary);line-height:1.3;}
+h1{font-size:1.75rem;}h2{font-size:1.4rem;}h3{font-size:1.15rem;}h4{font-size:1rem;}
+.text-sm{font-size:.875rem;}.text-xs{font-size:.75rem;}.text-muted{color:var(--muted);}
+.text-danger{color:var(--danger);}.text-success{color:var(--success);}.text-warning{color:var(--warning);}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  border:1px solid transparent;padding:10px 18px;border-radius:var(--radius);
+  font-weight:600;cursor:pointer;transition:background .2s,transform .1s;
+  background:var(--surface);color:var(--text);border-color:var(--border);
+}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary);}
+.btn-primary:hover{background:var(--primary-dark);}
+.btn-accent{background:var(--accent);color:#fff;border-color:var(--accent);}
+.btn-accent:hover{background:var(--accent-dark);}
+.btn-danger{background:var(--danger);color:#fff;border-color:var(--danger);}
+.btn-ghost{background:transparent;}
+.btn-sm{padding:6px 12px;font-size:.875rem;}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+
+/* Forms */
+.form-group{margin-bottom:16px;}
+label{display:block;font-weight:600;margin-bottom:6px;color:var(--muted);font-size:.875rem;}
+input,textarea,select{
+  width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--surface);transition:border-color .2s;
+}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(30,58,95,.08);}
+textarea{min-height:100px;resize:vertical;}
+input[type="number"]{max-width:120px;}
+
+/* Card, Table, Badge */
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);padding:24px;
+}
+.card-hover{transition:transform .2s,box-shadow .2s;cursor:pointer;}
+.card-hover:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);}
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);}
+table{width:100%;border-collapse:collapse;font-size:.875rem;}
+th,td{padding:12px 16px;text-align:start;border-bottom:1px solid var(--border);white-space:nowrap;}
+th{font-weight:700;color:var(--primary);background:#F1F5F9;font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:#F8FAFC;}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.02em;}
+.badge-navy{background:#E0E7F1;color:var(--primary);}.badge-teal{background:#D1FAE5;color:var(--accent-dark);}
+.badge-amber{background:#FEF3C7;color:#92400E;}.badge-red{background:#FEE2E2;color:#991B1B;}
+.badge-green{background:#D1FAE5;color:#065F46;}
+
+/* Layout */
+#app{min-height:100dvh;display:flex;flex-direction:column;}
+.app-layout{display:flex;flex-direction:column;flex:1;}
+.app-layout.is-auth{flex-direction:row;}
+.main-wrapper{flex:1;display:flex;flex-direction:column;}
+.main-content{padding:24px;max-width:1200px;margin:0 auto;width:100%;}
+.desktop-only{display:none;}
+
+/* Top bar */
+.topbar{
+  height:var(--header-h);background:var(--surface);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:40;
+}
+.topbar-logo{font-weight:800;color:var(--primary);font-size:1.25rem;display:flex;align-items:center;gap:8px;}
+.topbar-actions{display:flex;align-items:center;gap:12px;}
+.lang-toggle{
+  background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);
+  padding:6px 10px;font-weight:700;color:var(--primary);cursor:pointer;font-size:.875rem;
+}
+.notif-btn{position:relative;}
+.notif-dot{
+  position:absolute;top:2px;inset-inline-end:2px;background:var(--danger);color:#fff;
+  font-size:10px;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+}
+
+/* Sidebar */
+.sidebar{display:none;}
+.sidebar-nav{list-style:none;padding:16px;}
+.sidebar-nav li{margin-bottom:6px;}
+.sidebar-nav a{
+  display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--radius);
+  color:var(--muted);font-weight:600;font-size:.875rem;transition:all .2s;
+}
+.sidebar-nav a:hover,.sidebar-nav a.active{background:#F1F5F9;color:var(--primary);}
+
+/* Bottom nav */
+.bottom-nav{
+  height:var(--bottom-nav-h);background:var(--surface);border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-around;position:fixed;bottom:0;inset-inline:0;z-index:40;
+}
+.bottom-nav a{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px;
+  color:var(--muted);font-size:.625rem;font-weight:600;
+}
+.bottom-nav a.active{color:var(--primary);}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:20px;overflow-x:auto;}
+.tab-btn{
+  padding:10px 16px;background:none;border:none;border-bottom:3px solid transparent;
+  font-weight:700;color:var(--muted);cursor:pointer;white-space:nowrap;
+}
+.tab-btn.active{color:var(--primary);border-color:var(--primary);}
+
+/* Hero / Auth */
+.hero{
+  background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);
+  color:#fff;padding:80px 24px;text-align:center;
+}
+.hero h1{color:#fff;font-size:2.25rem;margin-bottom:12px;}
+.hero p{opacity:.85;max-width:560px;margin:0 auto 24px;}
+.auth-box{max-width:420px;margin:0 auto;background:rgba(255,255,255,.08);backdrop-filter:blur(8px);padding:32px;border-radius:var(--radius-lg);border:1px solid rgba(255,255,255,.12);}
+.auth-box input,.auth-box select,.auth-box textarea{color:var(--text);background:#fff;}
+.auth-box label{color:rgba(255,255,255,.9);}
+.auth-tabs{display:flex;gap:8px;margin-bottom:20px;justify-content:center;}
+.auth-tab-btn{
+  background:none;border:none;color:rgba(255,255,255,.7);font-weight:700;padding-bottom:6px;
+  border-bottom:2px solid transparent;cursor:pointer;
+}
+.auth-tab-btn.active{color:#fff;border-color:#fff;}
+
+/* Dashboard */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:24px;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
+.stat-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;}
+.stat-value{font-size:1.75rem;font-weight:800;color:var(--primary);margin-top:4px;}
+
+/* Course cards */
+.course-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+.course-cover{height:120px;border-radius:var(--radius) var(--radius) 0 0;}
+
+/* Lists */
+.list-item{
+  display:flex;align-items:center;gap:16px;padding:16px;background:var(--surface);
+  border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;transition:box-shadow .2s;
+}
+.list-item:hover{box-shadow:var(--shadow);}
+
+/* Upload */
+.upload-zone{
+  border:2px dashed var(--border);border-radius:var(--radius-lg);padding:32px;text-align:center;
+  color:var(--muted);cursor:pointer;transition:border-color .2s,background .2s;
+}
+.upload-zone:hover{border-color:var(--accent);background:#F0FDFA;}
+.upload-zone.locked{border-color:var(--danger);background:#FEF2F2;cursor:not-allowed;}
+
+/* Countdown / Timer */
+.countdown{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary);}
+
+/* Exam screen */
+.exam-screen{max-width:800px;margin:0 auto;padding:24px;}
+.question-nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+.q-nav-btn{
+  width:40px;height:40px;border-radius:var(--radius);border:1px solid var(--border);
+  background:var(--surface);font-weight:700;cursor:pointer;
+}
+.q-nav-btn.answered{background:var(--accent);color:#fff;border-color:var(--accent);}
+
+/* Calendar */
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:.875rem;}
+.cal-day-head{padding:8px;font-weight:700;color:var(--muted);font-size:.75rem;text-transform:uppercase;}
+.cal-day{padding:8px;border-radius:var(--radius);min-height:40px;display:flex;flex-direction:column;align-items:center;gap:2px;}
+.cal-day.other{color:var(--muted);opacity:.6;}
+.cal-day.today{background:#F1F5F9;font-weight:700;}
+.cal-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:2px;}
+
+/* Notifications dropdown */
+.notif-dropdown{
+  position:absolute;top:var(--header-h);inset-inline-end:24px;width:340px;max-height:400px;overflow-y:auto;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-lg);z-index:50;
+}
+.notif-item{padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;}
+.notif-item:hover{background:#F8FAFC;}
+.notif-item.unread{border-inline-start:3px solid var(--accent);}
+
+/* Modal */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:50;
+  display:flex;align-items:center;justify-content:center;padding:16px;
+}
+.modal-content{
+  background:var(--surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);
+  width:100%;max-width:560px;max-height:90vh;overflow-y:auto;
+}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.modal-body{padding:24px;}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;}
+
+/* Distraction-free exam */
+.distraction-free .topbar,.distraction-free .sidebar,.distraction-free .bottom-nav{display:none!important;}
+.distraction-free .main-wrapper{margin-inline-start:0!important;}
+
+/* Toast */
+.toast{
+  position:fixed;bottom:24px;inset-inline-start:50%;transform:translateX(-50%);
+  background:var(--primary);color:#fff;padding:12px 20px;border-radius:var(--radius);
+  box-shadow:var(--shadow-lg);z-index:60;font-weight:600;display:none;
+}
+
+/* Responsive */
+@media (min-width:1024px){
+  .sidebar{display:flex;width:var(--sidebar-w);background:var(--surface);border-inline-end:1px solid var(--border);position:fixed;inset-block:var(--header-h) 0;inset-inline-start:0;z-index:30;overflow-y:auto;}
+  .bottom-nav{display:none;}
+  .main-wrapper{margin-inline-start:var(--sidebar-w);}
+  .main-content{padding:32px;}
+  .mobile-only{display:none!important;}
+  .desktop-only{display:flex;}
+}
+@media (max-width:1023px){
+ .main-content{padding:16px;padding-bottom:calc(16px + var(--bottom-nav-h));}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" class="toast"></div>
+
+<script>
+/* ============================================
+   SECTION 1: I18N STRINGS
+   ============================================ */
+const AR = {
+  appName:"المنصة الأكاديمية", appShort:"Academia Hub", lang:"العربية",
+  login:"تسجيل الدخول", signup:"إنشاء حساب", logout:"تسجيل الخروج",
+  role:"الدور", instructor:"أستاذ", student:"طالب",
+  email:"البريد الإلكتروني", password:"كلمة المرور", name:"الاسم الكامل", studentId:"الرقم الجامعي",
+  welcome:"مرحباً", dashboard:"لوحة التحكم", courses:"المقررات", assignments:"الواجبات",
+  exams:"الاختبارات", grades:"الدرجات", people:"المشتركون", settings:"الإعدادات",
+  notifications:"الإشعارات", stream:"المنشورات", createCourse:"إنشاء مقرر", courseCode:"رمز المقرر",
+  joinCode:"رمز الانضمام", join:"الانضمام إلى مقرر", createAssignment:"إنشاء واجب",
+  title:"العنوان", instructions:"التعليمات", attachments:"المرفقات", maxGrade:"الدرجة العظمى",
+  openDate:"تاريخ الفتح", closeDate:"تاريخ الإغلاق", allowedFormats:"الامتدادات المسموحة",
+  submissions:"التسليمات", submit:"تسليم", resubmit:"إعادة تسليم", grade:"الدرجة", feedback:"التعليق",
+  outOf:"من", deadline:"الموعد النهائي", upcoming:"القادمة", pending:"معلّقة", recentGrades:"الدرجات الأخيرة",
+  calendar:"التقويم", locked:"مغلق 🔒", late:"متأخر", onTime:"في الموعد", notSubmitted:"لم يُسلّم",
+  startExam:"بدء الاختبار", timeLeft:"الوقت المتبقي", autoSave:"تم الحفظ تلقائياً",
+  gradebook:"دفتر الدرجات", exportCSV:"تصدير CSV", save:"حفظ", cancel:"إلغاء", delete:"حذف", edit:"تعديل",
+  approve:"قبول", remove:"إزالة", announcement:"إعلان", post:"نشر", comment:"تعليق", noData:"لا توجد بيانات",
+  uploadArea:"اسحب الملفات هنا أو انقر للرفع", uploadedFiles:"الملفات المرفقة",
+  dragDrop:"PDF, DOCX, PPTX, XLSX, ZIP, JPG, PNG", maxSize:"الحد الأقصى للملف",
+  remaining:"المتبقي", overdue:"انتهى الموعد", today:"اليوم", tomorrow:"غداً",
+  upcomingDeadlines:"المواعيد القادمة", quickStats:"إحصائيات سريعة", activeCourses:"المقررات النشطة",
+  totalStudents:"إجمالي الطلاب", pendingGrading:"تصحيح معلّق", notifAssignment:"واجب جديد",
+  notifDeadline:"تنبيه موعد", notifGrade:"درجة منشورة", notifExtension:"تمديد موعد",
+  profile:"الملف الشخصي", language:"اللغة", notificationsSettings:"إعدادات الإشعارات",
+  saveChanges:"حفظ التغييرات", joinLink:"رابط الانضمام", copied:"تم النسخ", copy:"نسخ", share:"مشاركة",
+  peopleList:"قائمة المشتركين", pendingApprovals:"طلبات قيد الانتظار", examAvailability:"فترة التوفر",
+  duration:"المدة", minutes:"دقيقة", question:"سؤال", of:"من", next:"التالي", prev:"السابق",
+  answered:"تم الإجابة", unanswered:"لم يُجب", submitExam:"تسليم الاختبار", areYouSure:"هل أنت متأكد؟",
+  yes:"نعم", no:"لا", closed:"مغلق", open:"مفتوح", releaseResults:"إصدار النتائج",
+  resultsReleased:"تم إصدار النتائج", personalDeadline:"موعدك الشخصي", extensionNote:"تم تمديد الموعد لك",
+  view:"عرض", addComment:"إضافة تعليق", emptyStream:"لا توجد منشورات بعد",
+  emptyAssignments:"لا توجد واجبات", emptyExams:"لا توجد اختبارات", emptyGrades:"لا توجد درجات مسجلة",
+  emptyPeople:"لا يوجد طلاب مسجّلون", lockedDesc:"تم إغلاق التسليم لانتهاء الموعد",
+  startNow:"ابدأ الآن", resume:"استئناف", submittedAt:"تاريخ التسليم", graded:"تم التصحيح",
+  notGraded:"لم يُصحّح بعد", viewFeedback:"عرض التعليق", gradeAssigned:"الدرجة الممنوحة",
+  examTitle:"عنوان الاختبار", examInstructions:"تعليمات الاختبار", points:"نقطة", result:"النتيجة",
+  correct:"صحيح", incorrect:"خاطئ", essayGradedManual:"يتم تصحيح الأسئلة المقالية يدوياً",
+  autoGraded:"مصحّح تلقائياً", partialMatch:"تطابق جزئي",
+  typeSingle:"اختيار من متعدد", typeMulti:"اختيار متعدد", typeTF:"صح/خطأ",
+  typeShort:"إجابة قصيرة", typeEssay:"مقالي", reviewExam:"مراجعة الاختبار",
+  mySubmissions:"تسليماتي", submissionHistory:"سجل التسليمات", version:"نسخة", due:"ينتهي",
+  yourAnswer:"إجابتك", state:"الحالة",
+  content:"المحتوى", addModule:"إضافة وحدة", moduleTitle:"عنوان الوحدة", addItem:"إضافة عنصر",
+  itemType:"نوع العنصر", typeFile:"ملف", typeVideo:"فيديو", typeLink:"رابط", typeText:"نص",
+  videoUrl:"رابط الفيديو (YouTube)", linkUrl:"الرابط", textContent:"المحتوى النصي",
+  emptyContent:"لا يوجد محتوى بعد", discussions:"النقاشات", newThread:"موضوع جديد",
+  threadTitle:"عنوان الموضوع", threadBody:"نص الموضوع", replies:"ردود", reply:"رد",
+  writeReply:"اكتب رداً...", emptyDiscussions:"لا توجد نقاشات بعد", backToDiscussions:"← النقاشات",
+  messages:"الرسائل", typeMessage:"اكتب رسالة...", emptyMessages:"لا توجد رسائل",
+  attendance:"الحضور", takeAttendance:"تسجيل الحضور", present:"حاضر", absent:"غائب", excused:"بعذر",
+  attendanceDate:"تاريخ الجلسة", saveAttendance:"حفظ الحضور", attendanceRate:"نسبة الحضور",
+  sessions:"الجلسات", emptyAttendance:"لا توجد جلسات مسجلة",
+  notifContent:"محتوى جديد", notifMessage:"رسالة جديدة", notifThread:"نقاش جديد",
+  manageQuestions:"إدارة الأسئلة", addQuestion:"إضافة سؤال", questionText:"نص السؤال",
+  option:"خيار", correctAnswer:"الإجابة الصحيحة", noQuestions:"لا توجد أسئلة بعد",
+  markAllRead:"تعليم الكل كمقروء"
+};
+
+const EN = {
+  appName:"Academia Hub", appShort:"Academia Hub", lang:"English",
+  login:"Log In", signup:"Sign Up", logout:"Log Out",
+  role:"Role", instructor:"Instructor", student:"Student",
+  email:"Email", password:"Password", name:"Full Name", studentId:"Student ID",
+  welcome:"Welcome", dashboard:"Dashboard", courses:"Courses", assignments:"Assignments",
+  exams:"Exams", grades:"Grades", people:"People", settings:"Settings",
+  notifications:"Notifications", stream:"Stream", createCourse:"Create Course",
+  courseCode:"Course Code", joinCode:"Join Code", join:"Join Course",
+  createAssignment:"Create Assignment", title:"Title", instructions:"Instructions",
+  attachments:"Attachments", maxGrade:"Max Grade", openDate:"Open Date",
+  closeDate:"Close Date", allowedFormats:"Allowed Formats", submissions:"Submissions",
+  submit:"Submit", resubmit:"Resubmit", grade:"Grade", feedback:"Feedback", outOf:"out of",
+  deadline:"Deadline", upcoming:"Upcoming", pending:"Pending", recentGrades:"Recent Grades",
+  calendar:"Calendar", locked:"Locked 🔒", late:"Late", onTime:"On Time",
+  notSubmitted:"Not Submitted", startExam:"Start Exam", timeLeft:"Time Left",
+  autoSave:"Auto-saved", gradebook:"Gradebook", exportCSV:"Export CSV", save:"Save",
+  cancel:"Cancel", delete:"Delete", edit:"Edit", approve:"Approve", remove:"Remove",
+  announcement:"Announcement", post:"Post", comment:"Comment", noData:"No data",
+  uploadArea:"Drag files here or click to upload", uploadedFiles:"Attached files",
+  dragDrop:"PDF, DOCX, PPTX, XLSX, ZIP, JPG, PNG", maxSize:"Max file size",
+  remaining:"Remaining", overdue:"Overdue", today:"Today", tomorrow:"Tomorrow",
+  upcomingDeadlines:"Upcoming Deadlines", quickStats:"Quick Stats",
+  activeCourses:"Active Courses", totalStudents:"Total Students",
+  pendingGrading:"Pending Grading", notifAssignment:"New Assignment",
+  notifDeadline:"Deadline Alert", notifGrade:"Grade Released",
+  notifExtension:"Deadline Extended", profile:"Profile", language:"Language",
+  notificationsSettings:"Notification Settings", saveChanges:"Save Changes",
+  joinLink:"Join Link", copied:"Copied", copy:"Copy", share:"Share",
+  peopleList:"Member List", pendingApprovals:"Pending Approvals",
+  examAvailability:"Availability Window", duration:"Duration", minutes:"minutes",
+  question:"Question", of:"of", next:"Next", prev:"Previous", answered:"Answered",
+  unanswered:"Unanswered", submitExam:"Submit Exam", areYouSure:"Are you sure?",
+  yes:"Yes", no:"No", closed:"Closed", open:"Open", releaseResults:"Release Results",
+  resultsReleased:"Results Released", personalDeadline:"Your Deadline",
+  extensionNote:"Your deadline has been extended", view:"View", addComment:"Add a comment",
+  emptyStream:"No announcements yet", emptyAssignments:"No assignments",
+  emptyExams:"No exams", emptyGrades:"No grades recorded", emptyPeople:"No enrolled students",
+  lockedDesc:"Submission is closed because the deadline has passed", startNow:"Start Now",
+  resume:"Resume", submittedAt:"Submitted at", graded:"Graded", notGraded:"Not graded yet",
+  viewFeedback:"View Feedback", gradeAssigned:"Grade Assigned", examTitle:"Exam Title",
+  examInstructions:"Exam Instructions", points:"points", result:"Result",
+  correct:"Correct", incorrect:"Incorrect", essayGradedManual:"Essay questions are graded manually",
+  autoGraded:"Auto-graded", partialMatch:"Partial match",
+  typeSingle:"Multiple Choice (Single)", typeMulti:"Multiple Select",
+  typeTF:"True / False", typeShort:"Short Answer", typeEssay:"Essay",
+  reviewExam:"Review Exam", mySubmissions:"My Submissions",
+  submissionHistory:"Submission History", version:"Version", due:"Due",
+  yourAnswer:"Your Answer", state:"Status",
+  content:"Content", addModule:"Add Module", moduleTitle:"Module Title", addItem:"Add Item",
+  itemType:"Item Type", typeFile:"File", typeVideo:"Video", typeLink:"Link", typeText:"Text",
+  videoUrl:"Video URL (YouTube)", linkUrl:"URL", textContent:"Text Content",
+  emptyContent:"No content yet", discussions:"Discussions", newThread:"New Thread",
+  threadTitle:"Thread Title", threadBody:"Thread Body", replies:"replies", reply:"Reply",
+  writeReply:"Write a reply...", emptyDiscussions:"No discussions yet", backToDiscussions:"← Discussions",
+  messages:"Messages", typeMessage:"Type a message...", emptyMessages:"No messages",
+  attendance:"Attendance", takeAttendance:"Take Attendance", present:"Present", absent:"Absent", excused:"Excused",
+  attendanceDate:"Session Date", saveAttendance:"Save Attendance", attendanceRate:"Attendance Rate",
+  sessions:"Sessions", emptyAttendance:"No recorded sessions",
+  notifContent:"New Content", notifMessage:"New Message", notifThread:"New Discussion",
+  manageQuestions:"Manage Questions", addQuestion:"Add Question", questionText:"Question Text",
+  option:"Option", correctAnswer:"Correct Answer", noQuestions:"No questions yet",
+  markAllRead:"Mark all as read"
+};
+
+let lang = 'ar';
+let dir = 'rtl';
+const t = (k) => (lang==='ar'?AR:EN)[k] || k;
+function setLang(l){lang=l;dir=l==='ar'?'rtl':'ltr';document.documentElement.lang=l;document.documentElement.dir=dir;render();}
+
+/* ============================================
+   SECTION 2: STATE, HELPERS, MOCK DATABASE
+   ============================================ */
+const now = () => new Date();
+const addDays = (d,n) => {const x=new Date(d);x.setDate(x.getDate()+n);return x;};
+const genId = () => Math.random().toString(36).slice(2)+Date.now().toString(36);
+const fmtDate = (iso) => iso ? new Date(iso).toLocaleString(lang==='ar'?'ar-SA':'en-US',{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+const fmtDateShort = (iso) => iso ? new Date(iso).toLocaleDateString(lang==='ar'?'ar-SA':'en-US',{month:'short',day:'numeric'}) : '';
+const fmtBytes = (b) => b<1024?b+'B':b<1048576?(b/1024).toFixed(1)+'KB':(b/1048576).toFixed(1)+'MB';
+const nowIso = () => new Date().toISOString();
+
+let appState = null;
+function loadState(){
+  try{
+    const raw = localStorage.getItem('academia_data_v1');
+    if(raw){appState=JSON.parse(raw);migrateState();return;}
+  }catch(e){}
+  seedData();
+}
+function migrateState(){
+  let changed=false;
+  ['contentModules','discussions','messages','attendance'].forEach(k=>{
+    if(!appState[k]){appState[k]=[];changed=true;}
+  });
+  if(changed) saveState();
+}
+function saveState(){
+  try{ localStorage.setItem('academia_data_v1',JSON.stringify(appState)); }
+  catch(e){
+    /* Quota exceeded: trim oldest notifications & messages, then retry */
+    appState.notifications=appState.notifications.slice(-50);
+    appState.messages=(appState.messages||[]).slice(-200);
+    try{ localStorage.setItem('academia_data_v1',JSON.stringify(appState)); }
+    catch(e2){ console.warn('localStorage full — state not persisted'); }
+  }
+}
+
+function seedData(){
+  const instId=genId(), sId=genId(), courseId=genId(), a1=genId(), a2=genId(), e1=genId();
+  appState={
+    currentUser:null,
+    users:[      {id:instId,role:'instructor',name:'د. أحمد الخالدي / Dr. Ahmed Al-Khalidi',email:'instructor@academia.hub',password:'password',enrolledCourseIds:[],createdCourseIds:[courseId]},
+      {id:sId,role:'student',name:'محمد العلي / Mohammed Al-Ali',email:'student@academia.hub',password:'password',studentId:'20240001',enrolledCourseIds:[courseId],createdCourseIds:[]}
+    ],
+    courses:[      {id:courseId,name:'مبادئ علم الأدوية الأساسية / Basic Pharmacology',code:'MED-301',description:'مقرر الدوائر الدموية والقلب والأدوية الأساسية. / Cardiac and vascular pharmacology essentials.',coverColor:'#1E3A5F',joinCode:'MED301A',instructorId:instId,studentIds:[sId],
+ announcements:[
+ {id:genId(),courseId,authorId:instId,content:'مرحباً بكم في المقرر. يرجى مراجعة الواجب الأول قبل نهاية الأسبوع. / Welcome to the course. Please review the first assignment before the end of the week.',createdAt:addDays(now(),-2).toISOString(),comments:[]}
+       ]}
+    ],
+    assignments:[      {id:a1,courseId,title:'الواجب 1: ملخص الدوائر الدموية / Assignment 1: CV Summary',instructions:'اكتب ملفاً يلخّص آليات عمل أدوية القلب الأساسية بحد أقصى 500 كلمة. / Write a summary of basic cardiac drug mechanisms, max 500 words.',attachments:[{name:'ref-cardiac.pdf',type:'application/pdf',size:1200000}],maxGrade:10,openDate:addDays(now(),-5).toISOString(),closeDate:addDays(now(),2).toISOString(),allowedFormats:['pdf','docx','zip'],maxFileSizeMB:20,extensions:{globalCloseDate:null,perStudent:[]},createdAt:addDays(now(),-6).toISOString()},
+      {id:a2,courseId,title:'البحث الصغير: تقييم أدوية جديد / Mini Research: Drug Evaluation',instructions:'قم بتقييم دراسة سريرية حديثة (2023-2024) حول مضادات تخثر جديدة. / Evaluate a recent clinical study (2023-2024) on new anticoagulants.',attachments:[],maxGrade:15,openDate:addDays(now(),-1).toISOString(),closeDate:addDays(now(),5).toISOString(),allowedFormats:['pdf','docx','pptx','zip'],maxFileSizeMB:50,extensions:{globalCloseDate:null,perStudent:[]},createdAt:addDays(now(),-2).toISOString()}
+    ],
+    submissions:[
+      {id:genId(),assignmentId:a1,studentId:sId,files:[{name:'submission-v1.pdf',type:'application/pdf',size:800000}],textAnswer:'',submittedAt:addDays(now(),-1).toISOString(),version:1,grade:null,feedback:'',state:'submitted',isLate:false}
+    ],
+    exams:[
+      {id:e1,courseId,title:'اختبار منتصف الفصل: علم الأدوية / Midterm: Pharmacology',instructions:'مدة الاختبار 45 دقيقة. اختر الإجابة الأنسب لكل سؤال. / 45 minutes. Choose the best answer for each question.',availabilityStart:addDays(now(),-1).toISOString(),availabilityEnd:addDays(now(),3).toISOString(),durationMinutes:45,questions:[
+        {id:'q1',examId:e1,type:'single',text:'ما هو الدواء المضاد للبلاتيلت الأكثر استخداماً في متلازمة الشرايين الحادة؟ / What is the most commonly used antiplatelet in ACS?',options:[{id:'o1',text:'Aspirin'},{id:'o2',text:'Warfarin'},{id:'o3',text:'Heparin'},{id:'o4',text:'Atorvastatin'}],correctAnswer:'o1',points:2},
+ {id:'q2',examId:e1,type:'single',text:'آلية عمل الأسبرين هي / Aspirin mechanism is:',options:[{id:'o1',text:'Reversible COX inhibition'},{id:'o2',text:'Irreversible COX inhibition'},{id:'o3',text:'P2Y12 blockade'},{id:'o4',text:'Factor Xa inhibition'}],correctAnswer:'o2',points:1},
+        {id:'q3',examId:e1,type:'truefalse',text:'الهيبارين يتطلب مراقبة INR / Heparin requires INR monitoring.',correctAnswer:false,points:1},
+        {id:'q4',examId:e1,type:'short',text:'اكتب الاختصار العلمي لـ non-ST elevation myocardial infarction / Write the acronym for NSTEMI.',correctAnswer:'n-stemi',tolerance:'low',points:2}
+      ],extensions:{globalCloseDate:null,perStudent:[]},showResultsImmediately:true,createdAt:addDays(now(),-4).toISOString()}
+    ],
+    examAttempts:[
+      {id:genId(),examId:e1,studentId:sId,startedAt:addDays(now(),-1).toISOString(),submittedAt:addDays(now(),-1).toISOString(),answers:[{questionId:'q1',value:'o1'},{questionId:'q2',value:'o2'},{questionId:'q3',value:true},{questionId:'q4',value:'NSTEMI'}],score:4,isSubmitted:true,isGraded:true}
+    ],
+    contentModules:[
+      {id:genId(),courseId,title:'الوحدة 1: مقدمة في أدوية القلب / Unit 1: Intro to Cardiac Drugs',order:1,createdAt:addDays(now(),-5).toISOString(),items:[
+        {id:genId(),type:'text',title:'نظرة عامة / Overview',content:'تغطي هذه الوحدة الأصناف الرئيسية لأدوية القلب: مضادات الصفيحات، مضادات التخثر، وحاصرات بيتا. / This unit covers the main classes of cardiac drugs: antiplatelets, anticoagulants, and beta-blockers.'},
+        {id:genId(),type:'file',title:'شرائح المحاضرة 1 / Lecture 1 Slides',fileName:'lecture1-slides.pdf',size:2400000},
+        {id:genId(),type:'link',title:'مرجع خارجي: إرشادات WHO / External: WHO Guidelines',url:'https://www.who.int'}
+      ]}
+    ],
+    discussions:[
+      {id:genId(),courseId,title:'سؤال عن آلية عمل الأسبرين / Question about aspirin mechanism',body:'هل تثبيط COX عكوس أم غير عكوس؟ / Is COX inhibition reversible or irreversible?',authorId:sId,createdAt:addDays(now(),-1).toISOString(),replies:[
+        {id:genId(),authorId:instId,content:'غير عكوس — راجع الوحدة الأولى في المحتوى. / Irreversible — see Unit 1 in Content.',createdAt:now().toISOString()}
+      ]}
+    ],
+    messages:[
+      {id:genId(),fromId:instId,toId:sId,content:'تذكير: موعد تسليم الواجب الأول يقترب. / Reminder: Assignment 1 deadline is approaching.',createdAt:addDays(now(),-1).toISOString(),read:false}
+    ],
+    attendance:[
+      {id:genId(),courseId,date:addDays(now(),-2).toISOString().slice(0,10),records:{[sId]:'present'}}
+    ],
+    notifications:[
+      {id:genId(),userId:sId,type:'assignment',message:'تم نشر واجب جديد في مقرر MED-301 / New assignment posted in MED-301',read:false,createdAt:addDays(now(),-2).toISOString()},
+      {id:genId(),userId:sId,type:'deadline',message:'تبقّى 24 ساعة على موعد تسليم الواجب 1 / 24h left for Assignment 1',read:false,createdAt:addDays(now(),-1).toISOString()}
+    ],
+    settings:{language:'ar'}
+  };
+  saveState();
+}
+
+/* Entity getters */
+const getUser = id => appState.users.find(u=>u.id===id);
+const getCourse = id => appState.courses.find(c=>c.id===id);
+const getAssignment = id => appState.assignments.find(a=>a.id===id);
+const getExam = id => appState.exams.find(e=>e.id===id);
+const getSubmissions = (aid,sid) => appState.submissions.filter(s=>s.assignmentId===aid && s.studentId===sid).sort((a,b)=>new Date(b.submittedAt)-new Date(a.submittedAt));
+const getAttempt = (eid,sid) => appState.examAttempts.find(a=>a.examId===eid && a.studentId===sid);
+const getNotifications = () => appState.currentUser ? appState.notifications.filter(n=>n.userId===appState.currentUser.id).sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)) : [];
+const unreadCount = () => getNotifications().filter(n=>!n.read).length;
+
+/* Domain logic */
+function getMyCourses(){
+  if(!appState.currentUser) return [];
+  if(appState.currentUser.role==='instructor') return appState.courses.filter(c=>c.instructorId===appState.currentUser.id);
+  return appState.courses.filter(c=>c.studentIds.includes(appState.currentUser.id));
+}
+function getEffectiveDeadline(assignment,studentId){
+  const per=assignment.extensions.perStudent.find(x=>x.studentId===studentId);
+  if(per) return per.closeDate;
+  if(assignment.extensions.globalCloseDate) return assignment.extensions.globalCloseDate;
+  return assignment.closeDate;
+}
+function isLocked(assignment,studentId){
+  return new Date() > new Date(getEffectiveDeadline(assignment,studentId));
+}
+function isExamAvailable(exam,studentId){
+  const now=new Date(); const start=new Date(exam.availabilityStart); const end=new Date(exam.availabilityEnd);
+  const per=exam.extensions.perStudent.find(x=>x.studentId===studentId);
+  if(per && per.closeDate) return now>=start && now<=new Date(per.closeDate);
+  if(exam.extensions.globalCloseDate) return now>=start && now<=new Date(exam.extensions.globalCloseDate);
+  return now>=start && now<=end;
+}
+function canStartExam(exam,studentId){
+  if(!isExamAvailable(exam,studentId)) return false;
+  const att=getAttempt(exam.id,studentId); return !(att && att.isSubmitted);
+}
+function autoGradeQuestion(q,answer){
+  if(!answer && answer!==false && answer!==0) return 0;
+  if(q.type==='single') return answer===q.correctAnswer ? q.points : 0;
+  if(q.type==='truefalse') return !!answer===q.correctAnswer ? q.points : 0;
+  if(q.type==='short'){
+    const a=answer.toString().trim().toLowerCase();
+    const c=q.correctAnswer.toString().trim().toLowerCase();
+    if(a===c) return q.points;
+    if(q.tolerance==='low' && a.replace(/[^a-z0-9]/g,'')===c.replace(/[^a-z0-9]/g,'')) return q.points;
+    return 0;
+  }
+  return 0;
+}
+function getRecentGrades(){
+  if(!appState.currentUser || appState.currentUser.role!=='student') return [];
+  return appState.submissions.filter(s=>s.studentId===appState.currentUser.id && s.grade!==null)
+    .sort((a,b)=>new Date(b.submittedAt)-new Date(a.submittedAt)).slice(0,5)
+    .map(s=>({title:getAssignment(s.assignmentId)?.title||'', grade:s.grade, max:getAssignment(s.assignmentId)?.maxGrade||0}));
+}
+function getPendingGradingCount(){
+  if(!appState.currentUser || appState.currentUser.role!=='instructor') return 0;
+  const myIds=getMyCourses().map(c=>c.id);
+  let count=0;
+  appState.assignments.filter(a=>myIds.includes(a.courseId)).forEach(a=>{
+    const subs=appState.submissions.filter(s=>s.assignmentId===a.id && s.grade===null);
+    count += new Set(subs.map(s=>s.studentId)).size;
+  });
+  return count;
+}
+function getDeadlines(){
+  const uid=appState.currentUser?.id; if(!uid) return [];
+  const list=[];
+  appState.assignments.forEach(a=>{
+    if(!getMyCourses().some(c=>c.id===a.courseId)) return;
+    const dl=getEffectiveDeadline(a,uid); list.push({...a,deadline:dl,isOverdue:new Date()>new Date(dl)});
+  });
+  appState.exams.forEach(e=>{
+    if(!getMyCourses().some(c=>c.id===e.courseId)) return;
+    const dl=e.availabilityEnd;
+    const per=e.extensions.perStudent.find(x=>x.studentId===uid);
+    const final=per?per.closeDate:(e.extensions.globalCloseDate||dl);
+    list.push({id:e.id,title:e.title,courseId:e.courseId,deadline:final,isOverdue:new Date()>new Date(final),isExam:true});
+  });
+  return list.sort((a,b)=>new Date(a.deadline)-new Date(b.deadline));
+}
+function addNotification(userId,type,message){
+  appState.notifications.push({id:genId(),userId,type,message,read:false,createdAt:nowIso()});
+  if(appState.notifications.length>300) appState.notifications=appState.notifications.slice(-300);
+  saveState();
+}
+
+/* SVG Icons */
+function svgIcon(name,size=20){
+  const s=`width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"`;
+  const i={
+    home:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline>',
+    book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>',
+    clipboard:'<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>',
+    checkSquare:'<polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>',
+    settings:'<circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>',
+    bell:'<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path>',
+    user:'<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>',
+    users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>',
+    file:'<path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>',
+    clock:'<circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>',
+    lock:'<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>',
+    calendar:'<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>',
+    plus:'<line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>',
+    trash:'<polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>',
+    download:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line>',
+    upload:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line>',
+    send:'<line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>',
+    x:'<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>',
+    search:'<circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>',
+    message:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>',
+    video:'<polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>',
+    link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>',
+    folder:'<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>'
+  };
+  return `<svg ${s}>${i[name]||''}</svg>`;
+}
+
+/* ============================================
+   SECTION 3: ROUTING & RENDER ENGINE
+   ============================================ */
+let currentView = {name:'landing'};
+function goTo(name,params={}){ currentView={name,...params}; window.scrollTo(0,0); render(); }
+function showToast(msg){
+  const el=document.getElementById('toast'); el.textContent=msg; el.style.display='block';
+  setTimeout(()=>el.style.display='none',3000);
+}
+
+function render(){
+  const app=document.getElementById('app');
+  if(!appState.currentUser){
+    app.innerHTML = renderLanding();
+    attachLandingEvents();
+  } else {
+    const isExam = currentView.name==='examTake';
+    app.innerHTML = `
+      <div class="app-layout is-auth ${isExam?'distraction-free':''}">
+        ${renderTopbar()}
+        ${renderSidebar()}
+        <div class="main-wrapper">
+          <main class="main-content">${renderAuthView()}</main>
+        </div>
+        ${isExam?'':renderBottomNav()}
+        ${renderModalIfAny()}
+      </div>
+    `;
+    attachAuthEvents();
+  }
+  startCountdowns();
+}
+
+function renderLanding(){
+  const isLogin = currentView.name==='login';
+  return `
+    <div>
+      <section class="hero">
+        <h1>${t('appName')}</h1>
+        <p>منصة احترافية للإدارة الأكاديمية والتقييم / A professional platform for academic management and assessment.</p>
+        <div class="auth-box">
+          <div class="auth-tabs">
+            <button class="auth-tab-btn ${isLogin?'active':''}" onclick="goTo('login')">${t('login')}</button>
+            <button class="auth-tab-btn ${!isLogin?'active':''}" onclick="goTo('signup')">${t('signup')}</button>
+          </div>
+          <form id="authForm" autocomplete="off">
+            ${renderAuthFields(!isLogin)}
+ <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">${isLogin?t('login'):t('signup')}</button>
+          </form>
+          <div style="margin-top:16px;display:flex;gap:8px;">
+            <button type="button" class="btn btn-accent" style="flex:1;" onclick="demoLogin('instructor')">${lang==='ar'?'دخول تجريبي: أستاذ':'Demo: Instructor'}</button>
+            <button type="button" class="btn btn-accent" style="flex:1;" onclick="demoLogin('student')">${lang==='ar'?'دخول تجريبي: طالب':'Demo: Student'}</button>
+          </div>
+          <div style="margin-top:16px;text-align:center;">
+            <button class="btn btn-ghost" style="color:rgba(255,255,255,.85);border-color:rgba(255,255,255,.2);" onclick="setLang(lang==='ar'?'en':'ar')">${lang==='ar'?'English':'العربية'}</button>
+          </div>
+        </div>
+      </section>
+      <section style="padding:64px 24px;background:var(--bg);">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;max-width:1000px;margin:0 auto;">
+          <div class="card" style="text-align:center;padding:24px;"><div style="font-size:2rem;margin-bottom:12px;">📚</div><h4>${t('courses')}</h4><p class="text-sm text-muted">إدارة المقررات والانضمام عبر رمز سري. / Manage courses and join via secure code.</p></div>
+          <div class="card" style="text-align:center;padding:24px;"><div style="font-size:2rem;margin-bottom:12px;">📝</div><h4>${t('assignments')}</h4><p class="text-sm text-muted">تسليم الملفات مع نوافذ زمنية وإغلاق تلقائي. / File submissions with time windows and auto-lock.</p></div>
+          <div class="card" style="text-align:center;padding:24px;"><div style="font-size:2rem;margin-bottom:12px;">⏱️</div><h4>${t('exams')}</h4><p class="text-sm text-muted">اختبارات موقوتة بأنواع متعددة وحفظ تلقائي. / Timed exams with various types and auto-save.</p></div>
+          <div class="card" style="text-align:center;padding:24px;"><div style="font-size:2rem;margin-bottom:12px;">📊</div><h4>${t('grades')}</h4><p class="text-sm text-muted">دفتر درجات تفاعلي مع تصدير. / Interactive gradebook with exporting.</p></div>
+        </div>
+      </section>
+    </div>
+  `;
+}
+function renderAuthFields(isSignup){
+  if(!isSignup) return `
+    <div class="form-group"><label>${t('email')}</label><input type="email" id="inEmail" required value="instructor@academia.hub"></div>
+    <div class="form-group"><label>${t('password')}</label><input type="password" id="inPass" required value="password"></div>
+  `;
+  return `
+    <div class="form-group"><label>${t('role')}</label><select id="upRole"><option value="student">${t('student')}</option><option value="instructor">${t('instructor')}</option></select></div>
+    <div class="form-group"><label>${t('name')}</label><input type="text" id="upName" required></div>
+    <div class="form-group"><label>${t('email')}</label><input type="email" id="upEmail" required></div>
+    <div class="form-group"><label>${t('studentId')}</label><input type="text" id="upStudentId"></div>
+    <div class="form-group"><label>${t('password')}</label><input type="password" id="upPass" required></div>
+  `;
+}
+
+function renderTopbar(){
+  const u=appState.currentUser;
+  return `
+    <header class="topbar desktop-only">
+      <div class="topbar-logo" style="cursor:pointer;" onclick="goTo('dashboard')">${svgIcon('book',24)} ${t('appShort')}</div>
+      <div class="topbar-actions">
+        <button class="lang-toggle" onclick="setLang(lang==='ar'?'en':'ar')">${t('lang')}</button>
+        <div style="position:relative;">
+          <button class="btn btn-ghost notif-btn" onclick="toggleNotif()">${svgIcon('bell')}
+            ${unreadCount()?`<span class="notif-dot">${unreadCount()}</span>`:''}
+          </button>
+          <div class="notif-dropdown" id="notifDrop" style="display:none;">
+            ${unreadCount()?`<div style="padding:8px 16px;border-bottom:1px solid var(--border);text-align:end;"><button class="btn btn-sm btn-ghost" onclick="markAllNotifsRead()">${t('markAllRead')}</button></div>`:''}
+            ${getNotifications().length?getNotifications().map(n=>`<div class="notif-item ${n.read?'':'unread'}" onclick="readNotif('${n.id}')"><div class="text-sm">${n.message}</div><div class="text-xs text-muted">${fmtDate(n.createdAt)}</div></div>`).join(''):`<div class="text-muted text-sm" style="padding:16px;text-align:center;">${t('noData')}</div>`}
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="text-sm" style="font-weight:700;">${u?.name?.split('/')[lang==='ar'?0:1]?.trim()||u?.name}</span>
+          <button class="btn btn-sm btn-ghost" onclick="logout()">${svgIcon('x',18)}</button>
+        </div>
+      </div>
+    </header>
+  `;
+}
+function toggleNotif(){
+  const d=document.getElementById('notifDrop'); if(!d) return;
+  d.style.display=d.style.display==='none'?'block':'none';
+}
+function readNotif(id){
+  const n=appState.notifications.find(x=>x.id===id); if(!n||n.read) return;
+  n.read=true; saveState(); render();
+  setTimeout(()=>{const d=document.getElementById('notifDrop'); if(d) d.style.display='block';},0);
+}
+function markAllNotifsRead(){
+  getNotifications().filter(n=>!n.read).forEach(n=>n.read=true);
+  saveState(); render();
+  setTimeout(()=>{const d=document.getElementById('notifDrop'); if(d) d.style.display='block';},0);
+}
+function renderSidebar(){
+  const tabs=[
+    {icon:'home',label:t('dashboard'),view:'dashboard'},
+    {icon:'book',label:t('courses'),view:'coursesList'},
+    {icon:'message',label:t('messages'),view:'messages'},
+    {icon:'settings',label:t('settings'),view:'settings'}
+  ];
+  return `<aside class="sidebar desktop-only"><nav><ul class="sidebar-nav">${tabs.map(it=>`<li><a href="javascript:void(0)" class="${currentView.name===it.view?'active':''}" onclick="goTo('${it.view}')">${svgIcon(it.icon)} ${it.label}</a></li>`).join('')}</ul></nav></aside>`;
+}
+function renderBottomNav(){
+  const tabs=[
+    {icon:'home',label:t('dashboard'),view:'dashboard'},
+    {icon:'book',label:t('courses'),view:'coursesList'},
+    {icon:'clipboard',label:t('assignments'),view:'assignmentsList'},
+    {icon:'checkSquare',label:t('exams'),view:'examsList'},
+    {icon:'message',label:t('messages'),view:'messages'},
+    {icon:'settings',label:t('settings'),view:'settings'}
+  ];
+  return `<nav class="bottom-nav mobile-only">${tabs.map(t=>`<a href="javascript:void(0)" class="${currentView.name===t.view?'active':''}" onclick="goTo('${t.view}')">${svgIcon(t.icon,22)}<span>${t.label}</span></a>`).join('')}</nav>`;
+}
+
+function renderAuthView(){
+  const map={
+    dashboard:renderDashboard, coursesList:renderCoursesList, course:renderCoursePage,
+    assignment:renderAssignmentDetail, examTake:renderExamTake, examResults:renderExamResults,
+    assignmentsList:renderAssignmentsList, examsList:renderExamsList, settings:renderSettings,
+    messages:renderMessages, examEdit:renderExamEdit
+  };
+  return (map[currentView.name]||map.dashboard)(currentView);
+}
+
+/* ============================================
+   SECTION 4: PAGE VIEWS
+   ============================================ */
+function renderDashboard(){
+  if(appState.currentUser.role==='instructor') return renderInstructorDashboard();
+  return renderStudentDashboard();
+}
+function userFirstName(){
+  const n=appState.currentUser?.name||'User';
+  const parts=n.split('/'); const use=parts[lang==='ar'?0:1]||parts[0];
+  return use.trim().split(' ').slice(0,2).join(' ');
+}
+function renderStudentDashboard(){
+  const courses=getMyCourses(); const deadlines=getDeadlines().slice(0,5); const recent=getRecentGrades();
+  return `
+    <div>
+      <h2 style="margin-bottom:24px;">${t('welcome')}، ${userFirstName()}</h2>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">${t('activeCourses')}</div><div class="stat-value">${courses.length}</div></div>
+        <div class="stat-card"><div class="stat-label">${t('pending')}</div><div class="stat-value">${appState.submissions.filter(s=>s.studentId===appState.currentUser.id && s.grade===null).length}</div></div>
+        <div class="stat-card"><div class="stat-label">${t('upcomingDeadlines')}</div><div class="stat-value">${deadlines.filter(d=>!d.isOverdue).length}</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr;gap:24px;">
+        <div class="card">
+          <h3 style="margin-bottom:16px;">${t('upcomingDeadlines')}</h3>
+          ${deadlines.length?deadlines.map(d=>`
+            <div class="list-item" style="cursor:pointer;" onclick="goTo('${d.isExam?'examsList':'assignment'}',{${d.isExam?'':`assignmentId:'${d.id}'`}})">
+              <div style="flex:1;"><div style="font-weight:700;">${d.title}</div><div class="text-sm text-muted">${getCourse(d.courseId)?.code} · ${fmtDate(d.deadline)}</div></div>
+              <div class="countdown ${d.isOverdue?'text-danger':''}" data-countdown="${d.deadline}"></div>
+              ${d.isOverdue?`<span class="badge badge-red">${t('overdue')}</span>`:''}
+            </div>
+          `).join(''):`<div class="text-muted text-sm">${t('noData')}</div>`}
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:16px;">${t('recentGrades')}</h3>
+          ${recent.length?recent.map(r=>`
+            <div class="list-item">
+              <div style="flex:1;font-weight:700;">${r.title}</div>
+              <div><span class="badge badge-teal">${r.grade} / ${r.max}</span></div>
+            </div>
+          `).join(''):`<div class="text-muted text-sm">${t('noData')}</div>`}
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:16px;">${t('calendar')}</h3>
+          ${renderCalendar()}
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:16px;">${t('courses')}</h3>
+          <div class="course-grid">
+            ${courses.map(c=>renderCourseCard(c)).join('')}
+            <div class="card card-hover" onclick="openJoinCourseModal()" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--accent);">
+              ${svgIcon('plus',32)} <span style="font-weight:700;">${t('join')}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+function renderInstructorDashboard(){
+  const courses=getMyCourses();
+  return `
+    <div>
+      <h2 style="margin-bottom:24px;">${t('welcome')}، ${userFirstName()}</h2>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">${t('activeCourses')}</div><div class="stat-value">${courses.length}</div></div>
+        <div class="stat-card"><div class="stat-label">${t('totalStudents')}</div><div class="stat-value">${courses.reduce((a,c)=>a+c.studentIds.length,0)}</div></div>
+        <div class="stat-card"><div class="stat-label">${t('pendingGrading')}</div><div class="stat-value" style="color:var(--warning);">${getPendingGradingCount()}</div></div>
+      </div>
+      <div style="margin-bottom:24px;">
+        <button class="btn btn-primary" onclick="openCreateCourseModal()">${svgIcon('plus',18)} ${t('createCourse')}</button>
+      </div>
+      <h3 style="margin-bottom:16px;">${t('courses')}</h3>
+      <div class="course-grid">${courses.map(c=>renderCourseCard(c)).join('')}</div>
+    </div>
+  `;
+}
+function renderCourseCard(c){
+  return `
+    <div class="card card-hover" onclick="goTo('course',{courseId:'${c.id}',tab:'stream'})">
+      <div class="course-cover" style="background:${c.coverColor};margin:-24px -24px 16px;"></div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+        <div><h4 style="margin-bottom:4px;">${c.name}</h4><div class="text-sm text-muted">${c.code}</div></div>
+ ${c.joinCode?`<span class="badge badge-navy">${c.joinCode}</span>`:''}
+      </div>
+      <div class="text-sm text-muted" style="margin-top:8px;">${c.description.slice(0,80)}…</div>
+    </div>
+  `;
+}
+
+function renderCalendar(){
+  const today=new Date(); const year=today.getFullYear(); const month=today.getMonth();
+  const first=new Date(year,month,1); const start=new Date(first); start.setDate(start.getDate()-((first.getDay()+6)%7));
+  let html=`<div class="calendar">`;
+  const days=lang==='ar'?['إث','ثل','أر','خم','جم','سب','أح']:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  days.forEach(d=>html+=`<div class="cal-day-head">${d}</div>`);
+  for(let i=0;i<42;i++){
+    const d=new Date(start); d.setDate(start.getDate()+i);
+    const isToday=d.toDateString()===today.toDateString();
+    const isOther=d.getMonth()!==month;
+    const dots=getDeadlineDots(d);
+    html+=`<div class="cal-day ${isToday?'today':''} ${isOther?'other':''}"><span>${d.getDate()}</span>${dots?`<div style="display:flex;gap:2px;">${Array(dots).fill('<span class="cal-dot"></span>').join('')}</div>`:''}</div>`;
+  }
+  return html+'</div>';
+}
+function getDeadlineDots(date){
+  const ds=date.toDateString(); let c=0; const uid=appState.currentUser?.id; if(!uid) return 0;
+  appState.assignments.forEach(a=>{
+    if(!getMyCourses().some(x=>x.id===a.courseId)) return;
+    if(new Date(getEffectiveDeadline(a,uid)).toDateString()===ds) c++;
+  });
+  appState.exams.forEach(e=>{
+    if(!getMyCourses().some(x=>x.id===e.courseId)) return;
+    if(new Date(e.availabilityEnd).toDateString()===ds) c++;
+  });
+  return Math.min(c,3);
+}
+
+function renderCoursesList(){
+  const courses=getMyCourses();
+  return `
+    <div>
+      <h2 style="margin-bottom:16px;">${t('courses')}</h2>
+      ${appState.currentUser.role==='student'?`
+        <div class="card" style="margin-bottom:20px;">
+          <h4 style="margin-bottom:12px;">${t('join')}</h4>
+          <div style="display:flex;gap:8px;">
+            <input type="text" id="joinCodeInput" placeholder="${t('joinCode')}">
+            <button class="btn btn-primary" onclick="joinCourseByCode()">${t('join')}</button>
+          </div>
+        </div>
+      `:`<div style="margin-bottom:20px;"><button class="btn btn-primary" onclick="openCreateCourseModal()">${svgIcon('plus',18)} ${t('createCourse')}</button></div>`}
+      <div class="course-grid">${courses.map(c=>renderCourseCard(c)).join('')}${!courses.length?`<div class="text-muted">${t('noData')}</div>`:''}</div>
+    </div>
+  `;
+}
+
+function renderCoursePage(view){
+  const c=getCourse(view.courseId); if(!c) return `<div>${t('noData')}</div>`;
+  const tab=view.tab||'stream';
+  const isInstructor=appState.currentUser.role==='instructor' && c.instructorId===appState.currentUser.id;
+  const tabs=[
+    {k:'stream',l:t('stream')},{k:'content',l:t('content')},{k:'assignments',l:t('assignments')},
+    {k:'exams',l:t('exams')},{k:'grades',l:t('grades')},{k:'discussions',l:t('discussions')},
+    {k:'attendance',l:t('attendance')},{k:'people',l:t('people')}
+  ];
+  return `
+    <div>
+      <div class="card" style="margin-bottom:24px;border-radius:0;margin:-24px -24px 24px;padding:24px;border-inline:0;border-block-start:0;">
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+          <div style="background:${c.coverColor};width:64px;height:64px;border-radius:var(--radius);"></div>
+          <div style="flex:1;"><h2 style="margin-bottom:2px;">${c.name}</h2><div class="text-sm text-muted">${c.code} · ${c.description.slice(0,120)}…</div></div>
+          ${isInstructor?`<div><span class="badge badge-navy">${t('joinCode')}: ${c.joinCode}</span> <button class="btn btn-sm btn-ghost" onclick="copyJoinLink('${c.joinCode}')">${t('copy')}</button></div>`:''}
+        </div>
+      </div>
+      <div class="tabs">${tabs.map(t=>`<button class="tab-btn ${tab===t.k?'active':''}" onclick="goTo('course',{courseId:'${c.id}',tab:'${t.k}'})">${t.l}</button>`).join('')}</div>
+      ${tab==='stream'?renderStream(c,isInstructor):tab==='content'?renderContentTab(c,isInstructor):tab==='assignments'?renderAssignmentsTab(c,isInstructor):tab==='exams'?renderExamsTab(c,isInstructor):tab==='grades'?renderGradesTab(c,isInstructor):tab==='discussions'?renderDiscussionsTab(c,isInstructor):tab==='attendance'?renderAttendanceTab(c,isInstructor):renderPeopleTab(c,isInstructor)}
+    </div>
+  `;
+}
+
+function renderStream(c,isInstructor){
+  return `
+    <div>
+      ${isInstructor?`
+        <div class="card" style="margin-bottom:20px;">
+          <label>${t('announcement')}</label>
+          <textarea id="annText" rows="2"></textarea>
+          <div style="margin-top:8px;text-align:end;"><button class="btn btn-primary" onclick="postAnnouncement('${c.id}')">${t('post')}</button></div>
+        </div>
+      `:''}
+      ${c.announcements.length?c.announcements.map(a=>`
+        <div class="card" style="margin-bottom:16px;">
+          <div class="text-sm text-muted" style="margin-bottom:8px;">${fmtDate(a.createdAt)} · ${getUser(a.authorId)?.name||''}</div>
+          <div style="white-space:pre-wrap;">${a.content}</div>
+          ${a.comments.length?`<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);">${a.comments.map(co=>`<div class="text-sm" style="margin-bottom:6px;"><span style="font-weight:700;">${getUser(co.authorId)?.name||''}:</span> ${co.content}</div>`).join('')}</div>`:''}
+          <div style="margin-top:12px;display:flex;gap:8px;">
+            <input type="text" class="text-sm" id="comm-${a.id}" placeholder="${t('addComment')}" style="flex:1;">
+            <button class="btn btn-sm btn-ghost" onclick="addComment('${c.id}','${a.id}')">${t('send')||'Send'}</button>
+          </div>
+        </div>
+      `).join(''):`<div class="text-muted" style="text-align:center;padding:40px;">${t('emptyStream')}</div>`}
+    </div>
+  `;
+}
+function renderAssignmentsTab(c,isInstructor){
+  const items=appState.assignments.filter(a=>a.courseId===c.id).sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+  return `
+    <div>
+      ${isInstructor?`<button class="btn btn-primary" style="margin-bottom:16px;" onclick="openCreateAssignmentModal('${c.id}')">${svgIcon('plus',18)} ${t('createAssignment')}</button>`:''}
+      ${items.length?items.map(a=>{
+        const uid=appState.currentUser.id; const sub=getSubmissions(a.id,uid)[0]; const locked=isLocked(a,uid); const dl=getEffectiveDeadline(a,uid);
+        return `
+          <div class="list-item card-hover" onclick="goTo('assignment',{assignmentId:'${a.id}'})">
+            <div style="flex:1;"><div style="font-weight:700;">${a.title}</div><div class="text-sm text-muted">${t('due')}: ${fmtDate(dl)} ${sub?`· ${t('submittedAt')}: ${fmtDateShort(sub.submittedAt)}`:''}</div></div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              ${sub?`<span class="badge ${sub.isLate?'badge-amber':'badge-teal'}">${sub.isLate?t('late'):t('onTime')}</span>`:''}
+              ${locked?`<span class="badge badge-red">${t('locked')}</span>`:''}
+              ${sub?.grade!==null&&sub?`<span class="badge badge-navy">${sub.grade}/${a.maxGrade}</span>`:''}
+            </div>
+          </div>
+        `;
+ }).join(''):`<div class="text-muted" style="text-align:center;padding:40px;">${t('emptyAssignments')}</div>`}
+    </div>
+  `;
+}
+function renderExamsTab(c,isInstr){
+  const items=appState.exams.filter(e=>e.courseId===c.id);
+  return `
+    <div>
+      ${isInstr?`<button class="btn btn-primary" style="margin-bottom:16px;" onclick="openCreateExamModal('${c.id}')">${svgIcon('plus',18)} ${t('exams')}</button>`:''}
+      ${items.length?items.map(e=>{
+        const uid=appState.currentUser.id; const att=getAttempt(e.id,uid); const avail=isExamAvailable(e,uid); const can=canStartExam(e,uid);
+        return `
+          <div class="list-item">
+            <div style="flex:1;"><div style="font-weight:700;">${e.title}</div><div class="text-sm text-muted">${fmtDate(e.availabilityStart)} - ${fmtDate(e.availabilityEnd)} · ${e.durationMinutes}${t('minutes')}</div></div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              ${isInstr?`<span class="badge badge-navy">${e.questions.length} ${t('question')}</span><button class="btn btn-sm btn-primary" onclick="goTo('examEdit',{examId:'${e.id}'})">${t('manageQuestions')}</button>`
+              :att?.isSubmitted?`<span class="badge badge-teal">${t('submittedAt')}</span><button class="btn btn-sm btn-accent" onclick="goTo('examResults',{examId:'${e.id}'})">${t('view')}</button>`
+              :can?`<button class="btn btn-accent" onclick="goTo('examTake',{examId:'${e.id}'})">${t('startExam')}</button>`
+              :!avail?`<span class="badge badge-red">${t('closed')}</span>`:`<span class="badge badge-navy">${t('locked')}</span>`}
+            </div>
+          </div>
+        `;
+      }).join(''):`<div class="text-muted" style="text-align:center;padding:40px;">${t('emptyExams')}</div>`}
+    </div>
+  `;
+}
+function renderGradesTab(c,isInstructor){
+  const students=c.studentIds.map(id=>getUser(id)).filter(Boolean);
+  const assignments=appState.assignments.filter(a=>a.courseId===c.id);
+  const exams=appState.exams.filter(e=>e.courseId===c.id);
+  const assessments=[...assignments.map(a=>({id:a.id,type:'a',title:a.title,max:a.maxGrade})),...exams.map(e=>({id:e.id,type:'e',title:e.title,max:e.questions.reduce((s,q)=>s+q.points,0)}))];
+  const rows=students.map(s=>{
+    const cells=assessments.map(as=>{
+      if(as.type==='a'){const sub=getSubmissions(as.id,s.id)[0]; return sub && sub.grade!==null ? sub.grade : '-';}
+      else{const att=getAttempt(as.id,s.id); return att && att.isGraded ? att.score : '-';}
+    });
+    const total=cells.filter(x=>x!=='-').reduce((a,b)=>a+(Number(b)||0),0);
+    const maxTotal=assessments.reduce((s,a)=>s+a.max,0);
+    return {student:s,cells,total,maxTotal};
+  });
+  return `
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3>${t('gradebook')}</h3>
+        <button class="btn btn-sm btn-accent" onclick="exportGradebook('${c.id}')">${svgIcon('download',16)} ${t('exportCSV')}</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>${t('name')}</th>${assessments.map(a=>`<th>${a.title} (${a.max})</th>`).join('')}<th>${t('grades')}</th></tr></thead>
+          <tbody>
+            ${rows.length?rows.map(r=>`<tr><td style="font-weight:700;">${r.student.name}</td>${r.cells.map(c=>`<td>${c}</td>`).join('')}<td style="font-weight:700;color:var(--primary);">${r.total} / ${r.maxTotal}</td></tr>`).join(''):`<tr><td colspan="${assessments.length+2}" style="text-align:center;" class="text-muted">${t('emptyGrades')}</td></tr>`}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+function renderPeopleTab(c,isInstructor){
+  const students=c.studentIds.map(id=>getUser(id)).filter(Boolean);
+  return `
+    <div>
+      <h3 style="margin-bottom:16px;">${t('peopleList')} (${students.length})</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>${t('name')}</th><th>${t('email')}</th>${isInstructor?'<th></th>':''}</tr></thead>
+          <tbody>
+            ${students.length?students.map(s=>`
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:8px;font-weight:700;">${svgIcon('user',16)} ${s.name}</div></td>
+                <td class="text-muted text-sm">${s.email}</td>
+ ${isInstructor?`<td><button class="btn btn-sm btn-danger" onclick="removeStudent('${c.id}','${s.id}')">${t('remove')}</button></td>`:''}
+              </tr>
+            `).join(''):`<tr><td colspan="3" class="text-muted" style="text-align:center;">${t('emptyPeople')}</td></tr>`}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+function renderAssignmentDetail(view){
+  const a=getAssignment(view.assignmentId); if(!a) return `<div>${t('noData')}</div>`;
+  const c=getCourse(a.courseId); const isStudent=appState.currentUser.role==='student';
+  return isStudent ? renderStudentAssignment(a,c) : renderInstructorAssignment(a,c);
+}
+function renderStudentAssignment(a,c){
+  const uid=appState.currentUser.id; const subs=getSubmissions(a.id,uid); const latest=subs[0];
+  const dl=getEffectiveDeadline(a,uid); const locked=isLocked(a,uid);
+  const per=a.extensions.perStudent.find(x=>x.studentId===uid);
+  return `
+    <div>
+      <button class="btn btn-sm btn-ghost" onclick="goTo('dashboard')">${lang==='ar'?'← رجوع':'← Back'}</button>
+      <div class="card" style="margin-top:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+          <div><h2 style="margin-bottom:4px;">${a.title}</h2><div class="text-sm text-muted">${c.code} · ${c.name}</div></div>
+          <div style="text-align:start;">${per?`<div class="badge badge-amber" style="margin-bottom:4px;">${t('personalDeadline')}</div>`:''}<div class="countdown" data-countdown="${dl}"></div><div class="text-sm text-muted">${fmtDate(dl)}</div></div>
+        </div>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+          <h4 style="margin-bottom:8px;">${t('instructions')}</h4><div style="white-space:pre-wrap;">${a.instructions}</div>
+        </div>
+        ${a.attachments.length?`<div style="margin-top:16px;"><h4 style="margin-bottom:8px;">${t('attachments')}</h4>${a.attachments.map(f=>`<div class="text-sm" style="display:flex;align-items:center;gap:6px;">${svgIcon('file',16)} ${f.name} (${fmtBytes(f.size)})</div>`).join('')}</div>`:''}
+      </div>
+      ${latest && latest.grade!==null?`
+        <div class="card" style="margin-top:16px;background:#F0FDFA;border-color:var(--accent);">
+          <h4 style="margin-bottom:8px;">${t('graded')}</h4>
+          <div style="font-size:1.5rem;font-weight:800;color:var(--accent-dark);margin-bottom:8px;">${latest.grade} ${t('outOf')} ${a.maxGrade}</div>
+          <div class="text-sm text-muted">${t('feedback')}: ${latest.feedback||'-'}</div>
+        </div>
+      `:''}
+      <div class="card" style="margin-top:16px;">
+        <h4 style="margin-bottom:12px;">${t('mySubmissions')}</h4>
+        ${!locked?`
+ <div class="upload-zone" id="dropZone" onclick="document.getElementById('fileIn').click()">
+            ${svgIcon('upload',32)}<div style="font-weight:700;margin-top:8px;">${t('uploadArea')}</div>
+            <div class="text-sm text-muted">${t('dragDrop')} · ${t('maxSize')}: ${a.maxFileSizeMB}MB</div>
+            <input type="file" id="fileIn" style="display:none;" onchange="handleFiles(this,'${a.id}')">
+          </div>
+        `:`
+          <div class="upload-zone locked" style="border-color:var(--danger);background:#FEF2F2;">
+            ${svgIcon('lock',32)}<div style="font-weight:700;margin-top:8px;color:var(--danger);">${t('locked')}</div><div class="text-sm">${t('lockedDesc')}</div>
+          </div>
+        `}
+        ${latest?`
+          <div style="margin-top:16px;">
+            <div class="list-item">
+              <div style="flex:1;"><div style="font-weight:700;">${latest.files.map(f=>f.name).join(', ')}</div><div class="text-sm text-muted">${fmtDate(latest.submittedAt)} · ${t('version')} ${latest.version}</div></div>
+              <div>${latest.isLate?`<span class="badge badge-amber">${t('late')}</span>`:`<span class="badge badge-teal">${t('onTime')}</span>`}</div>
+            </div>
+            ${!locked?`<button class="btn btn-sm btn-accent" onclick="document.getElementById('fileIn').click()">${t('resubmit')}</button>`:''}
+          </div>
+        `:''}
+      </div>
+    </div>
+  `;
+}
+function renderInstructorAssignment(a,c){
+  const students=c.studentIds.map(id=>getUser(id)).filter(Boolean);
+  const subs={}; students.forEach(s=>subs[s.id]=getSubmissions(a.id,s.id)[0]||null);
+  return `
+    <div>
+      <button class="btn btn-sm btn-ghost" onclick="goTo('dashboard')">${lang==='ar'?'← رجوع':'← Back'}</button>
+      <div class="card" style="margin-top:16px;">
+        <h2>${a.title}</h2>
+        <div class="text-sm text-muted" style="margin-bottom:16px;">${c.code} · ${t('closeDate')}: ${fmtDate(a.closeDate)}</div>
+        <div style="display:flex;gap:8px;margin-bottom:16px;">
+          <button class="btn btn-primary" onclick="openExtendModal('${a.id}')">${t('deadline')}: ${t('edit')}</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>${t('name')}</th><th>${t('submissions')}</th><th>${t('submittedAt')}</th><th>${t('state')}</th><th>${t('grade')}</th><th>${t('feedback')}</th><th></th></tr></thead>
+            <tbody>
+              ${students.map(s=>{
+                const sub=subs[s.id];
+ return `<tr>
+                  <td style="font-weight:700;">${s.name}</td>
+                  <td>${sub?sub.files.map(f=>`<div class="text-sm">${f.name}</div>`).join(''):`<span class="badge badge-red">${t('notSubmitted')}</span>`}</td>
+                  <td>${sub?fmtDate(sub.submittedAt):'-'}</td>
+                  <td>${sub?`<span class="badge ${sub.isLate?'badge-amber':'badge-teal'}">${sub.isLate?t('late'):t('onTime')}</span>`:'-'}</td>
+                  <td>${sub?`<input type="number" class="input-grade" data-sub="${sub.id}" value="${sub.grade!==null?sub.grade:''}" style="max-width:80px;padding:6px;" min="0" max="${a.maxGrade}"> / ${a.maxGrade}`:'-'}</td>
+                  <td>${sub?`<input type="text" class="input-feedback" data-sub="${sub.id}" value="${sub.feedback||''}" style="min-width:160px;padding:6px;" placeholder="${t('feedback')}">`:'-'}</td>
+                  <td>${sub?`<button class="btn btn-sm btn-primary" onclick="saveGrade('${sub.id}')">${t('save')}</button>`:''}</td>
+                </tr>`;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderExamTake(view){
+  const e=getExam(view.examId); if(!e) return `<div>${t('noData')}</div>`;
+  const uid=appState.currentUser.id; let att=getAttempt(e.id,uid);
+  if(!att){
+    att={id:genId(),examId:e.id,studentId:uid,startedAt:nowIso(),submittedAt:null,answers:[],score:0,isSubmitted:false,isGraded:false};
+    appState.examAttempts.push(att); saveState();
+  }
+  return `
+    <div class="exam-screen">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
+        <div><h2>${e.title}</h2><div class="text-sm text-muted">${e.durationMinutes} ${t('minutes')}</div></div>
+        <div style="font-size:2rem;font-weight:800;color:var(--danger);font-variant-numeric:tabular-nums;" id="examTimer">--:--</div>
+      </div>
+      <div class="question-nav">
+        ${e.questions.map((q,i)=>`<button class="q-nav-btn ${getAnswer(e.id,q.id)?'answered':''}" onclick="scrollToQ(${i})">${i+1}</button>`).join('')}
+      </div>
+      <form id="examForm" onsubmit="event.preventDefault();submitExam('${e.id}');">
+        ${e.questions.map((q,i)=>`
+          <div class="card" style="margin-bottom:20px;" id="q-${i}">
+            <div style="margin-bottom:12px;font-weight:700;">${i+1}. ${q.text} <span class="text-muted">(${q.points} ${t('points')})</span></div>
+            <div>
+              ${q.type==='single'?q.options.map(o=>`
+                <label style="display:flex;align-items:center;gap:8px;padding:10px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;cursor:pointer;">
+                  <input type="radio" name="q-${q.id}" value="${o.id}" ${getAnswer(e.id,q.id)===o.id?'checked':''} onchange="saveExamAnswer('${e.id}','${q.id}',this.value)">
+                  <span>${o.text}</span>
+                </label>
+              `).join(''):
+              q.type==='truefalse'?`
+                <label style="display:flex;align-items:center;gap:8px;padding:10px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;cursor:pointer;">
+                  <input type="radio" name="q-${q.id}" value="true" ${getAnswer(e.id,q.id)===true?'checked':''} onchange="saveExamAnswer('${e.id}','${q.id}',true)"> ${t('yes')}
+                </label>
+                <label style="display:flex;align-items:center;gap:8px;padding:10px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;cursor:pointer;">
+                  <input type="radio" name="q-${q.id}" value="false" ${getAnswer(e.id,q.id)===false?'checked':''} onchange="saveExamAnswer('${e.id}','${q.id}',false)"> ${t('no')}
+                </label>
+              `:
+              q.type==='short'?`<input type="text" placeholder="${t('typeShort')}" value="${getAnswer(e.id,q.id)||''}" oninput="saveExamAnswer('${e.id}','${q.id}',this.value)">`:
+              q.type==='essay'?`<textarea rows="4" placeholder="${t('typeEssay')}" oninput="saveExamAnswer('${e.id}','${q.id}',this.value)">${getAnswer(e.id,q.id)||''}</textarea>`:''}
+            </div>
+          </div>
+        `).join('')}
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+          <button type="button" class="btn btn-danger" onclick="submitExam('${e.id}')">${t('submitExam')}</button>
+          <div class="text-sm text-muted" id="autoSaveInd">${t('autoSave')}</div>
+        </div>
+      </form>
+    </div>
+  `;
+}
+function getAnswer(eid,qid){
+  const att=getAttempt(eid,appState.currentUser.id); if(!att) return null;
+  const a=att.answers.find(x=>x.questionId===qid); return a?a.value:null;
+}
+function scrollToQ(i){ const el=document.getElementById(`q-${i}`); if(el) el.scrollIntoView({behavior:'smooth',block:'center'}); }
+
+function renderExamResults(view){
+  const e=getExam(view.examId); if(!e) return `<div>${t('noData')}</div>`;
+  const att=getAttempt(e.id,appState.currentUser.id);
+  if(!att || !att.isSubmitted) return `<div>${t('noData')}</div>`;
+  const total=e.questions.reduce((s,q)=>s+q.points,0);
+  return `
+    <div>
+      <h2>${e.title}</h2>
+      <div class="card" style="margin:20px 0;"><div style="font-size:2rem;font-weight:800;color:var(--primary);">${att.score} / ${total}</div><div class="text-muted text-sm">${t('result')}</div></div>
+      <div style="margin-top:24px;">
+        ${e.questions.map((q,i)=>{
+          const ans=att.answers.find(a=>a.questionId===q.id)?.value;
+          const correct=autoGradeQuestion(q,ans)===q.points;
+          return `
+ <div class="card" style="margin-bottom:16px;">
+              <div style="font-weight:700;margin-bottom:8px;">${i+1}. ${q.text}</div>
+              <div class="text-sm text-muted" style="margin-bottom:8px;">${t('yourAnswer')}: ${ans??'-'}</div>
+              ${q.type!=='essay'?`<span class="badge ${correct?'badge-teal':'badge-red'}">${correct?t('correct'):t('incorrect')}</span>`:`<span class="badge badge-navy">${t('essayGradedManual')}</span>`}
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderAssignmentsList(){
+  const uid=appState.currentUser.id;
+  const items=appState.assignments.filter(a=>getMyCourses().some(c=>c.id===a.courseId));
+  return `
+    <div><h2 style="margin-bottom:16px;">${t('assignments')}</h2>
+      ${items.length?items.map(a=>{
+        const sub=getSubmissions(a.id,uid)[0]; const locked=isLocked(a,uid);
+        return `<div class="list-item card-hover" onclick="goTo('assignment',{assignmentId:'${a.id}'})">
+          <div style="flex:1;"><div style="font-weight:700;">${a.title}</div><div class="text-sm text-muted">${getCourse(a.courseId)?.code}</div></div>
+          <div style="display:flex;gap:8px;align-items:center;">${sub?`<span class="badge badge-teal">${t('submittedAt')}</span>`:''}${locked?`<span class="badge badge-red">${t('locked')}</span>`:''}</div>
+        </div>`;
+      }).join(''):`<div class="text-muted">${t('emptyAssignments')}</div>`}
+    </div>
+  `;
+}
+function renderExamsList(){
+  const uid=appState.currentUser.id;
+  const items=appState.exams.filter(e=>getMyCourses().some(c=>c.id===e.courseId));
+  return `
+    <div><h2 style="margin-bottom:16px;">${t('exams')}</h2>
+      ${items.length?items.map(e=>{
+        const att=getAttempt(e.id,uid), avail=isExamAvailable(e,uid), can=canStartExam(e,uid);
+        return `<div class="list-item">
+          <div style="flex:1;"><div style="font-weight:700;">${e.title}</div><div class="text-sm text-muted">${fmtDate(e.availabilityStart)} - ${fmtDate(e.availabilityEnd)}</div></div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            ${att?.isSubmitted?`<span class="badge badge-teal">${t('submittedAt')}</span><button class="btn btn-sm btn-accent" onclick="goTo('examResults',{examId:'${e.id}'})">${t('view')}</button>`
+ :can?`<button class="btn btn-accent" onclick="goTo('examTake',{examId:'${e.id}'})">${t('startExam')}</button>`
+            :!avail?`<span class="badge badge-red">${t('closed')}</span>`:''}
+          </div>
+        </div>`;
+      }).join(''):`<div class="text-muted">${t('emptyExams')}</div>`}
+    </div>
+  `;
+}
+function renderSettings(){
+  const u=appState.currentUser;
+  return `
+    <div>
+      <h2 style="margin-bottom:24px;">${t('settings')}</h2>
+      <div class="card" style="max-width:540px;">
+        <h4 style="margin-bottom:16px;">${t('profile')}</h4>
+        <div class="form-group"><label>${t('name')}</label><input type="text" id="setName" value="${u.name}"></div>
+        <div class="form-group"><label>${t('email')}</label><input type="email" id="setEmail" value="${u.email}"></div>
+        ${u.role==='student'?`<div class="form-group"><label>${t('studentId')}</label><input type="text" id="setStudentId" value="${u.studentId||''}"></div>`:''}
+        <h4 style="margin-top:24px;margin-bottom:16px;">${t('language')}</h4>
+        <div class="form-group">
+          <select id="setLang" onchange="setLang(this.value)">
+            <option value="ar" ${lang==='ar'?'selected':''}>العربية</option>
+            <option value="en" ${lang==='en'?'selected':''}>English</option>
+          </select>
+        </div>
+        <div style="margin-top:24px;"><button class="btn btn-primary" onclick="saveProfile()">${t('saveChanges')}</button></div>
+      </div>
+    </div>
+  `;
+}
+
+/* ============================================
+   SECTION 5: MODALS
+   ============================================ */
+let modalHtml='';
+function openModal(html){ modalHtml=html; render(); }
+function closeModal(){ modalHtml=''; render(); }
+function renderModalIfAny(){
+  if(!modalHtml) return '';
+  return `<div class="modal-overlay" onclick="if(event.target===this)closeModal()"><div class="modal-content"><div class="modal-header"><h4>${t('createCourse')}</h4><button class="btn btn-ghost" onclick="closeModal()">${svgIcon('x',20)}</button></div><div class="modal-body">${modalHtml}</div></div></div>`;
+}
+function openJoinCourseModal(){
+  openModal(`
+    <div class="form-group"><label>${t('joinCode')}</label><input type="text" id="modalJoinCode"></div>
+    <div class="modal-footer"><button class="btn btn-primary" onclick="modalJoinCourse()">${t('join')}</button></div>
+  `);
+}
+function openCreateCourseModal(){
+  openModal(`
+    <div class="form-group"><label>${t('title')}</label><input type="text" id="cName"></div>
+    <div class="form-group"><label>${t('courseCode')}</label><input type="text" id="cCode"></div>
+    <div class="form-group"><label>${t('instructions')}</label><textarea id="cDesc" rows="2"></textarea></div>
+    <div class="form-group"><label>Cover Color</label><select id="cColor"><option value="#1E3A5F">Navy</option><option value="#2A9D8F">Teal</option><option value="#D97706">Amber</option><option value="#7C3AED">Purple</option></select></div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-primary" onclick="createCourse()">${t('createCourse')}</button></div>
+  `);
+}
+function openCreateAssignmentModal(courseId){
+  openModal(`
+    <div class="form-group"><label>${t('title')}</label><input type="text" id="aTitle"></div>
+    <div class="form-group"><label>${t('instructions')}</label><textarea id="aInstructions" rows="3"></textarea></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="form-group"><label>${t('openDate')}</label><input type="datetime-local" id="aOpen"></div>
+      <div class="form-group"><label>${t('closeDate')}</label><input type="datetime-local" id="aClose"></div>
+    </div>
+    <div class="form-group"><label>${t('maxGrade')}</label><input type="number" id="aMax" value="10"></div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-primary" onclick="createAssignment('${courseId}')">${t('createAssignment')}</button></div>
+  `);
+}
+function openCreateExamModal(courseId){
+  openModal(`
+    <div class="form-group"><label>${t('examTitle')}</label><input type="text" id="eTitle"></div>
+    <div class="form-group"><label>${t('examInstructions')}</label><textarea id="eInstructions" rows="2"></textarea></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="form-group"><label>${t('openDate')}</label><input type="datetime-local" id="eOpen"></div>
+      <div class="form-group"><label>${t('closeDate')}</label><input type="datetime-local" id="eClose"></div>
+    </div>
+    <div class="form-group"><label>${t('duration')}</label><input type="number" id="eDuration" value="30"></div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-primary" onclick="createExam('${courseId}')">${t('createAssignment')}</button></div>
+  `);
+}
+function openExtendModal(aid){
+  openModal(`
+    <p class="text-muted text-sm" style="margin-bottom:12px;">Extend globally or per-student.</p>
+    <div class="form-group"><label>New Global Close Date</label><input type="datetime-local" id="extGlobal"></div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-primary" onclick="extendGlobal('${aid}')">${t('save')}</button></div>
+  `);
+}
+
+/* ============================================
+   SECTION 6: EVENT HANDLERS & ACTIONS
+   ============================================ */
+function attachLandingEvents(){
+  const form=document.getElementById('authForm'); if(!form) return;
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    if(currentView.name==='login'){
+      const email=document.getElementById('inEmail').value.trim();
+      const pass=document.getElementById('inPass').value;
+      const user=appState.users.find(u=>u.email===email && u.password===pass);
+      if(!user){showToast(lang==='ar'?'بيانات الدخول غير صحيحة':'Invalid credentials'); return;}
+      appState.currentUser=user; saveState(); goTo('dashboard');
+    } else {
+      const role=document.getElementById('upRole').value;
+      const name=document.getElementById('upName').value.trim();
+      const email=document.getElementById('upEmail').value.trim();
+      const sid=document.getElementById('upStudentId').value.trim();
+      const pass=document.getElementById('upPass').value;
+      if(appState.users.find(u=>u.email===email)){showToast('Email used');return;}
+      const newUser={id:genId(),role,name,email,password:pass,studentId:role==='student'?sid:'',enrolledCourseIds:[],createdCourseIds:[]};
+      appState.users.push(newUser); appState.currentUser=newUser; saveState(); goTo('dashboard');
+    }
+  });
+}
+function attachAuthEvents(){}
+function demoLogin(role){
+  const u=appState.users.find(x=>x.role===role);
+  if(u){appState.currentUser=u; saveState(); goTo('dashboard');}
+}
+function logout(){ appState.currentUser=null; currentView={name:'landing'}; saveState(); render(); }
+
+function joinCourseByCode(){
+  const code=document.getElementById('joinCodeInput')?.value.trim().toUpperCase();
+  if(!code) return;
+  const c=appState.courses.find(x=>x.joinCode===code);
+  if(!c){showToast('Invalid code');return;}
+  if(!c.studentIds.includes(appState.currentUser.id)){
+    c.studentIds.push(appState.currentUser.id);
+    appState.currentUser.enrolledCourseIds.push(c.id);
+    saveState(); render();
+  }
+}
+function modalJoinCourse(){
+  const code=document.getElementById('modalJoinCode')?.value.trim().toUpperCase();
+  if(!code) return;
+  const c=appState.courses.find(x=>x.joinCode===code);
+  if(!c){showToast('Invalid code');return;}
+  if(!c.studentIds.includes(appState.currentUser.id)){
+    c.studentIds.push(appState.currentUser.id); appState.currentUser.enrolledCourseIds.push(c.id);
+    saveState(); closeModal(); goTo('course',{courseId:c.id,tab:'stream'});
+  }
+}
+function createCourse(){
+  const name=document.getElementById('cName').value.trim();
+  const code=document.getElementById('cCode').value.trim();
+  const desc=document.getElementById('cDesc').value.trim();
+  const color=document.getElementById('cColor').value;
+  if(!name||!code){showToast('Required');return;}
+  const c={id:genId(),name,code:code.toUpperCase(),description:desc||'',coverColor:color,joinCode:code.toUpperCase()+Math.floor(Math.random()*900),instructorId:appState.currentUser.id,studentIds:[],announcements:[]};
+  appState.courses.push(c);
+  appState.currentUser.createdCourseIds.push(c.id);
+  saveState(); closeModal(); render();
+}
+function createAssignment(cid){
+  const title=document.getElementById('aTitle').value.trim();
+  const instructions=document.getElementById('aInstructions').value.trim();
+  const open=document.getElementById('aOpen').value;
+  const close=document.getElementById('aClose').value;
+  const max=Number(document.getElementById('aMax').value)||10;
+  if(!title||!close){showToast('Required');return;}
+  appState.assignments.push({id:genId(),courseId:cid,title,instructions,attachments:[],maxGrade:max,openDate:open?new Date(open).toISOString():nowIso(),closeDate:new Date(close).toISOString(),allowedFormats:['pdf','docx','pptx','zip','jpg','png'],maxFileSizeMB:20,extensions:{globalCloseDate:null,perStudent:[]},createdAt:nowIso()});
+  saveState(); closeModal(); render();
+}
+function createExam(cid){
+  const title=document.getElementById('eTitle').value.trim();
+  const instructions=document.getElementById('eInstructions').value.trim();
+  const open=document.getElementById('eOpen').value;
+  const close=document.getElementById('eClose').value;
+  const dur=Number(document.getElementById('eDuration').value)||30;
+  if(!title||!close){showToast('Required');return;}
+  const newExamId=genId();
+  appState.exams.push({id:newExamId,courseId:cid,title,instructions,availabilityStart:open?new Date(open).toISOString():nowIso(),availabilityEnd:new Date(close).toISOString(),durationMinutes:dur,questions:[],extensions:{globalCloseDate:null,perStudent:[]},showResultsImmediately:true,createdAt:nowIso()});
+  saveState(); modalHtml=''; goTo('examEdit',{examId:newExamId});
+}
+function handleFiles(input,aid){
+  const a=getAssignment(aid); if(!a||!input.files.length) return;
+  const files=Array.from(input.files).slice(0,5);
+  const uid=appState.currentUser.id;
+  const prev=getSubmissions(aid,uid);
+  const version=(prev[0]?.version||0)+1;
+  const isLate=new Date()>new Date(getEffectiveDeadline(a,uid));
+  const fileObjs=files.map(f=>({name:f.name,type:f.type,size:f.size}));
+  appState.submissions.push({id:genId(),assignmentId:aid,studentId:uid,files:fileObjs,textAnswer:'',submittedAt:nowIso(),version,grade:null,feedback:'',state:'submitted',isLate});
+  saveState(); render(); showToast('Uploaded');
+}
+function saveGrade(subId){
+  const gradeInput=document.querySelector(`.input-grade[data-sub="${subId}"]`);
+  const fbInput=document.querySelector(`.input-feedback[data-sub="${subId}"]`);
+  const sub=appState.submissions.find(s=>s.id===subId); if(!sub) return;
+  const g=gradeInput?parseFloat(gradeInput.value):null;
+  if(g!==null){sub.grade=g; sub.feedback=fbInput?fbInput.value:'';}
+  addNotification(sub.studentId,'grade','Grade released'); saveState(); showToast('Saved'); render();
+}
+function extendGlobal(aid){
+  const val=document.getElementById('extGlobal')?.value; if(!val) return;
+  const a=getAssignment(aid); if(!a) return;
+  a.extensions.globalCloseDate=new Date(val).toISOString();
+  addNotification(appState.currentUser.id,'extension','Deadline extended'); saveState(); closeModal(); render();
+}
+function saveProfile(){
+  const n=document.getElementById('setName')?.value.trim();
+  const e=document.getElementById('setEmail')?.value.trim();
+  const sid=document.getElementById('setStudentId')?.value.trim();
+  if(n) appState.currentUser.name=n; if(e) appState.currentUser.email=e;
+  if(appState.currentUser.role==='student' && sid!==undefined) appState.currentUser.studentId=sid;
+  saveState(); showToast('Saved'); render();
+}
+function saveExamAnswer(eid,qid,val){
+  const att=getAttempt(eid,appState.currentUser.id); if(!att) return;
+  const idx=att.answers.findIndex(a=>a.questionId===qid);
+  if(idx>-1) att.answers[idx].value=val;
+  else att.answers.push({questionId:qid,value:val});
+  saveState();
+  const btns=document.querySelectorAll('.q-nav-btn');
+  const qIndex=getExam(eid).questions.findIndex(q=>q.id===qid);
+  if(btns[qIndex]) btns[qIndex].classList.add('answered');
+  const ind=document.getElementById('autoSaveInd'); if(ind){ind.style.opacity=1; setTimeout(()=>ind.style.opacity=.6,800);}
+}
+function submitExam(eid){
+  if(!confirm(t('areYouSure'))) return;
+  const att=getAttempt(eid,appState.currentUser.id); if(!att) return;
+  att.submittedAt=nowIso(); att.isSubmitted=true;
+  const e=getExam(eid); let score=0;
+  e.questions.forEach(q=>{
+    const ans=att.answers.find(a=>a.questionId===q.id)?.value;
+    if(q.type!=='essay') score+=autoGradeQuestion(q,ans);
+    else att.isGraded=false;
+  });
+  att.score=score; att.isGraded=true;
+  saveState(); goTo('examResults',{examId:eid});
+}
+function removeStudent(cid,sid){
+  const c=getCourse(cid); if(!c) return;
+  c.studentIds=c.studentIds.filter(id=>id!==sid);
+  saveState(); render();
+}
+function copyJoinLink(code){
+  navigator.clipboard.writeText(window.location.origin+'/#join/'+code).then(()=>showToast(t('copied')));
+}
+function exportGradebook(cid){
+  const c=getCourse(cid);
+  const students=c.studentIds.map(id=>getUser(id)).filter(Boolean);
+  const assignments=appState.assignments.filter(a=>a.courseId===cid);
+  const exams=appState.exams.filter(e=>e.courseId===cid);
+  const assessments=[...assignments.map(a=>({id:a.id,type:'a',title:a.title,max:a.maxGrade})),...exams.map(e=>({id:e.id,type:'e',title:e.title,max:e.questions.reduce((s,q)=>s+q.points,0)}))];
+  let csv="Name,"+assessments.map(a=>a.title).join(',')+",Total,Max\n";
+  students.forEach(s=>{
+    const cells=assessments.map(as=>{
+      if(as.type==='a'){const sub=getSubmissions(as.id,s.id)[0]; return sub&&sub.grade!==null?sub.grade:'';}
+      else{const att=getAttempt(as.id,s.id); return att&&att.isGraded?att.score:'';}
+    });
+    const total=cells.filter(x=>x!=='').reduce((a,b)=>a+(Number(b)||0),0);
+    const maxTotal=assessments.reduce((s,a)=>s+a.max,0);
+    csv+=`"${s.name}",${cells.join(',')},${total},${maxTotal}\n`;
+  });
+  const blob=new Blob([csv],{type:'text/csv'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='gradebook.csv'; a.click();
+}
+function postAnnouncement(cid){
+  const el=document.getElementById('annText'); if(!el) return;
+  const text=el.value.trim(); if(!text) return;
+  const c=getCourse(cid); if(!c) return;
+  c.announcements.unshift({id:genId(),courseId:cid,authorId:appState.currentUser.id,content:text,createdAt:nowIso(),comments:[]});
+  c.studentIds.forEach(sid=>addNotification(sid,'assignment','New announcement in '+c.name));
+  saveState(); render();
+}
+function addComment(cid,aid){
+  const el=document.getElementById('comm-'+aid); if(!el) return;
+  const text=el.value.trim(); if(!text) return;
+  const c=getCourse(cid); const a=c.announcements.find(x=>x.id===aid); if(!a) return;
+  a.comments.push({id:genId(),authorId:appState.currentUser.id,content:text,createdAt:nowIso()});
+  saveState(); render();
+}
+
+/* ============================================
+   SECTION 6B: BLACKBOARD-STYLE FEATURES
+   (Content Modules, Discussions, Messages, Attendance)
+   ============================================ */
+
+/* ---------- Course Content ---------- */
+function renderContentTab(c,isInstr){
+  const mods=appState.contentModules.filter(m=>m.courseId===c.id).sort((a,b)=>(a.order||0)-(b.order||0));
+  return `
+    <div>
+      ${isInstr?`<button class="btn btn-primary" style="margin-bottom:16px;" onclick="openCreateModuleModal('${c.id}')">${svgIcon('plus',18)} ${t('addModule')}</button>`:''}
+      ${mods.length?mods.map(m=>`
+        <div class="card" style="margin-bottom:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+            <h3 style="display:flex;align-items:center;gap:8px;">${svgIcon('folder',18)} ${m.title}</h3>
+            ${isInstr?`<div style="display:flex;gap:6px;"><button class="btn btn-sm btn-accent" onclick="openAddContentItemModal('${m.id}')">${svgIcon('plus',14)} ${t('addItem')}</button><button class="btn btn-sm btn-ghost" onclick="deleteModule('${m.id}')">${svgIcon('trash',14)}</button></div>`:''}
+          </div>
+          ${m.items.length?m.items.map(it=>renderContentItem(m,it,isInstr)).join(''):`<div class="text-muted text-sm">${t('noData')}</div>`}
+        </div>
+      `).join(''):`<div class="text-muted" style="text-align:center;padding:40px;">${t('emptyContent')}</div>`}
+    </div>`;
+}
+function ytEmbed(url){
+  const m=(url||'').match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
+  return m?`https://www.youtube.com/embed/${m[1]}`:null;
+}
+function renderContentItem(m,it,isInstr){
+  const del=isInstr?`<button class="btn btn-sm btn-ghost" onclick="deleteContentItem('${m.id}','${it.id}')">${svgIcon('x',14)}</button>`:'';
+  if(it.type==='video'){
+    const emb=ytEmbed(it.url);
+    return `<div style="margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="font-weight:700;display:flex;align-items:center;gap:6px;">${svgIcon('video',16)} ${it.title}</div>${del}</div>
+      ${emb?`<div style="position:relative;padding-bottom:56.25%;height:0;border-radius:var(--radius);overflow:hidden;background:#000;"><iframe src="${emb}" style="position:absolute;inset:0;width:100%;height:100%;border:0;" allowfullscreen loading="lazy"></iframe></div>`:`<a href="${it.url}" target="_blank" rel="noopener" class="text-sm" style="color:var(--accent-dark);font-weight:600;">${it.url||''}</a>`}
+    </div>`;
+  }
+  if(it.type==='link') return `<div class="list-item"><div style="display:flex;align-items:center;gap:8px;flex:1;">${svgIcon('link',16)} <a href="${it.url}" target="_blank" rel="noopener" style="font-weight:700;color:var(--accent-dark);">${it.title}</a></div>${del}</div>`;
+  if(it.type==='text') return `<div class="list-item" style="align-items:flex-start;"><div style="flex:1;"><div style="font-weight:700;margin-bottom:4px;">${it.title}</div><div class="text-sm" style="white-space:pre-wrap;">${it.content||''}</div></div>${del}</div>`;
+  return `<div class="list-item"><div style="display:flex;align-items:center;gap:8px;flex:1;">${svgIcon('file',16)} <span style="font-weight:700;">${it.title}</span>${it.fileName?`<span class="text-sm text-muted">(${it.fileName}${it.size?' · '+fmtBytes(it.size):''})</span>`:''}</div>${del}</div>`;
+}
+function openCreateModuleModal(cid){
+  openModal(`
+    <div class="form-group"><label>${t('moduleTitle')}</label><input type="text" id="modTitle"></div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-primary" onclick="createModule('${cid}')">${t('addModule')}</button></div>
+  `);
+}
+function openAddContentItemModal(mid){
+  openModal(`
+    <div class="form-group"><label>${t('itemType')}</label><select id="ciType" onchange="toggleCiFields()"><option value="video">${t('typeVideo')}</option><option value="file">${t('typeFile')}</option><option value="link">${t('typeLink')}</option><option value="text">${t('typeText')}</option></select></div>
+    <div class="form-group"><label>${t('title')}</label><input type="text" id="ciTitle"></div>
+    <div class="form-group" id="ciUrlWrap"><label id="ciUrlLabel">${t('videoUrl')}</label><input type="text" id="ciUrl" placeholder="https://youtube.com/watch?v=..."></div>
+    <div class="form-group" id="ciFileWrap" style="display:none;"><label>${t('typeFile')}</label><input type="file" id="ciFile"></div>
+    <div class="form-group" id="ciTextWrap" style="display:none;"><label>${t('textContent')}</label><textarea id="ciText" rows="3"></textarea></div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-primary" onclick="addContentItem('${mid}')">${t('addItem')}</button></div>
+  `);
+}
+function toggleCiFields(){
+  const v=document.getElementById('ciType').value;
+  document.getElementById('ciUrlWrap').style.display=(v==='video'||v==='link')?'block':'none';
+  document.getElementById('ciUrlLabel').textContent=v==='video'?t('videoUrl'):t('linkUrl');
+  document.getElementById('ciFileWrap').style.display=v==='file'?'block':'none';
+  document.getElementById('ciTextWrap').style.display=v==='text'?'block':'none';
+}
+function createModule(cid){
+  const title=document.getElementById('modTitle')?.value.trim(); if(!title){showToast('Required');return;}
+  const order=appState.contentModules.filter(m=>m.courseId===cid).length+1;
+  appState.contentModules.push({id:genId(),courseId:cid,title,order,items:[],createdAt:nowIso()});
+  const c=getCourse(cid); if(c) c.studentIds.forEach(sid=>addNotification(sid,'content',t('notifContent')+': '+title));
+  saveState(); modalHtml=''; goTo('course',{courseId:cid,tab:'content'});
+}
+function addContentItem(mid){
+  const m=appState.contentModules.find(x=>x.id===mid); if(!m) return;
+  const type=document.getElementById('ciType').value;
+  const title=document.getElementById('ciTitle').value.trim(); if(!title){showToast('Required');return;}
+  const item={id:genId(),type,title};
+  if(type==='video'||type==='link') item.url=document.getElementById('ciUrl').value.trim();
+  if(type==='text') item.content=document.getElementById('ciText').value;
+  if(type==='file'){const f=document.getElementById('ciFile').files[0]; if(f){item.fileName=f.name; item.size=f.size;}}
+  m.items.push(item);
+  const c=getCourse(m.courseId); if(c) c.studentIds.forEach(sid=>addNotification(sid,'content',t('notifContent')+': '+title));
+  saveState(); modalHtml=''; goTo('course',{courseId:m.courseId,tab:'content'});
+}
+function deleteModule(mid){
+  if(!confirm(t('areYouSure'))) return;
+  appState.contentModules=appState.contentModules.filter(m=>m.id!==mid);
+  saveState(); render();
+}
+function deleteContentItem(mid,iid){
+  const m=appState.contentModules.find(x=>x.id===mid); if(!m) return;
+  m.items=m.items.filter(i=>i.id!==iid);
+  saveState(); render();
+}
+
+/* ---------- Discussions ---------- */
+function renderDiscussionsTab(c,isInstr){
+  if(currentView.threadId) return renderThreadDetail(c);
+  const threads=appState.discussions.filter(d=>d.courseId===c.id).sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+  return `
+    <div>
+      <button class="btn btn-primary" style="margin-bottom:16px;" onclick="openCreateThreadModal('${c.id}')">${svgIcon('plus',18)} ${t('newThread')}</button>
+      ${threads.length?threads.map(d=>`
+        <div class="list-item card-hover" onclick="goTo('course',{courseId:'${c.id}',tab:'discussions',threadId:'${d.id}'})">
+          <div style="flex:1;"><div style="font-weight:700;">${d.title}</div><div class="text-sm text-muted">${getUser(d.authorId)?.name||''} · ${fmtDate(d.createdAt)}</div></div>
+          <span class="badge badge-navy">${d.replies.length} ${t('replies')}</span>
+        </div>
+      `).join(''):`<div class="text-muted" style="text-align:center;padding:40px;">${t('emptyDiscussions')}</div>`}
+    </div>`;
+}
+function renderThreadDetail(c){
+  const d=appState.discussions.find(x=>x.id===currentView.threadId); if(!d) return `<div>${t('noData')}</div>`;
+  return `
+    <div>
+      <button class="btn btn-sm btn-ghost" onclick="goTo('course',{courseId:'${c.id}',tab:'discussions'})">${t('backToDiscussions')}</button>
+      <div class="card" style="margin-top:12px;">
+        <h3 style="margin-bottom:4px;">${d.title}</h3>
+        <div class="text-sm text-muted" style="margin-bottom:12px;">${getUser(d.authorId)?.name||''} · ${fmtDate(d.createdAt)}</div>
+        <div style="white-space:pre-wrap;">${d.body}</div>
+      </div>
+      <h4 style="margin:20px 0 12px;">${t('replies')} (${d.replies.length})</h4>
+      ${d.replies.map(r=>`
+        <div class="card" style="margin-bottom:10px;padding:14px;">
+          <div class="text-sm" style="font-weight:700;margin-bottom:2px;">${getUser(r.authorId)?.name||''}</div>
+          <div class="text-sm" style="white-space:pre-wrap;">${r.content}</div>
+          <div class="text-xs text-muted" style="margin-top:4px;">${fmtDate(r.createdAt)}</div>
+        </div>
+      `).join('')}
+      <div style="display:flex;gap:8px;margin-top:12px;">
+        <input type="text" id="replyInput" placeholder="${t('writeReply')}" style="flex:1;" onkeydown="if(event.key==='Enter')addReply('${d.id}')">
+        <button class="btn btn-primary" onclick="addReply('${d.id}')">${t('reply')}</button>
+      </div>
+    </div>`;
+}
+function openCreateThreadModal(cid){
+  openModal(`
+    <div class="form-group"><label>${t('threadTitle')}</label><input type="text" id="thTitle"></div>
+    <div class="form-group"><label>${t('threadBody')}</label><textarea id="thBody" rows="3"></textarea></div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-primary" onclick="createThread('${cid}')">${t('post')}</button></div>
+  `);
+}
+function createThread(cid){
+  const title=document.getElementById('thTitle')?.value.trim();
+  const body=document.getElementById('thBody')?.value.trim();
+  if(!title){showToast('Required');return;}
+  const d={id:genId(),courseId:cid,title,body:body||'',authorId:appState.currentUser.id,createdAt:nowIso(),replies:[]};
+  appState.discussions.push(d);
+  const c=getCourse(cid);
+  if(c) [c.instructorId,...c.studentIds].filter(id=>id!==appState.currentUser.id).forEach(uid=>addNotification(uid,'thread',t('notifThread')+': '+title));
+  saveState(); modalHtml=''; goTo('course',{courseId:cid,tab:'discussions',threadId:d.id});
+}
+function addReply(did){
+  const el=document.getElementById('replyInput'); const text=el?.value.trim(); if(!text) return;
+  const d=appState.discussions.find(x=>x.id===did); if(!d) return;
+  d.replies.push({id:genId(),authorId:appState.currentUser.id,content:text,createdAt:nowIso()});
+  if(d.authorId!==appState.currentUser.id) addNotification(d.authorId,'thread',t('reply')+': '+d.title);
+  saveState(); render();
+}
+
+/* ---------- Private Messages ---------- */
+function getContacts(){
+  const me=appState.currentUser; const map=new Map();
+  getMyCourses().forEach(c=>{
+    if(me.role==='student'){ const inst=getUser(c.instructorId); if(inst) map.set(inst.id,inst); }
+    else { c.studentIds.forEach(sid=>{const s=getUser(sid); if(s) map.set(s.id,s);}); }
+  });
+  return [...map.values()];
+}
+function myMessagesWith(uid){
+  const me=appState.currentUser.id;
+  return appState.messages.filter(m=>(m.fromId===me&&m.toId===uid)||(m.fromId===uid&&m.toId===me)).sort((a,b)=>new Date(a.createdAt)-new Date(b.createdAt));
+}
+function renderMessages(view){
+  const contacts=getContacts();
+  const active=view.userId?getUser(view.userId):null;
+  if(active){
+    const msgs=myMessagesWith(active.id);
+    let marked=false;
+    msgs.forEach(m=>{if(m.toId===appState.currentUser.id&&!m.read){m.read=true;marked=true;}});
+    if(marked) saveState();
+    setTimeout(()=>{const s=document.getElementById('msgScroll'); if(s) s.scrollTop=s.scrollHeight;},50);
+    return `
+      <div>
+        <button class="btn btn-sm btn-ghost" onclick="goTo('messages')">${lang==='ar'?'← المحادثات':'← Conversations'}</button>
+        <div class="card" style="margin-top:12px;">
+          <h3 style="margin-bottom:16px;">${active.name}</h3>
+          <div style="max-height:50vh;overflow-y:auto;display:flex;flex-direction:column;gap:8px;margin-bottom:16px;" id="msgScroll">
+            ${msgs.length?msgs.map(m=>{
+              const mine=m.fromId===appState.currentUser.id;
+              return `<div style="align-self:${mine?'flex-end':'flex-start'};max-width:75%;background:${mine?'var(--primary)':'#F1F5F9'};color:${mine?'#fff':'var(--text)'};padding:10px 14px;border-radius:14px;">
+                <div class="text-sm" style="white-space:pre-wrap;">${m.content}</div>
+                <div class="text-xs" style="opacity:.7;margin-top:2px;">${fmtDate(m.createdAt)}</div>
+              </div>`;
+            }).join(''):`<div class="text-muted text-sm">${t('emptyMessages')}</div>`}
+          </div>
+          <div style="display:flex;gap:8px;">
+            <input type="text" id="msgInput" placeholder="${t('typeMessage')}" style="flex:1;" onkeydown="if(event.key==='Enter')sendMessage('${active.id}')">
+            <button class="btn btn-primary" onclick="sendMessage('${active.id}')">${svgIcon('send',16)}</button>
+          </div>
+        </div>
+      </div>`;
+  }
+  return `
+    <div>
+      <h2 style="margin-bottom:16px;">${t('messages')}</h2>
+      ${contacts.length?contacts.map(u=>{
+        const msgs=myMessagesWith(u.id); const last=msgs[msgs.length-1];
+        const unread=msgs.filter(m=>m.toId===appState.currentUser.id&&!m.read).length;
+        return `<div class="list-item card-hover" onclick="goTo('messages',{userId:'${u.id}'})">
+          <div style="width:40px;height:40px;border-radius:50%;background:#E0E7F1;color:var(--primary);display:flex;align-items:center;justify-content:center;">${svgIcon('user',18)}</div>
+          <div style="flex:1;min-width:0;"><div style="font-weight:700;">${u.name}</div><div class="text-sm text-muted" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${last?last.content.slice(0,60):t('emptyMessages')}</div></div>
+          ${unread?`<span class="badge badge-red">${unread}</span>`:''}
+        </div>`;
+      }).join(''):`<div class="text-muted">${t('noData')}</div>`}
+    </div>`;
+}
+function sendMessage(toId){
+  const el=document.getElementById('msgInput'); const text=el?.value.trim(); if(!text) return;
+  appState.messages.push({id:genId(),fromId:appState.currentUser.id,toId,content:text,createdAt:nowIso(),read:false});
+  addNotification(toId,'message',t('notifMessage'));
+  saveState(); render();
+}
+
+/* ---------- Attendance ---------- */
+function attBadge(st){
+  const map={present:['badge-green',t('present')],absent:['badge-red',t('absent')],late:['badge-amber',t('late')],excused:['badge-navy',t('excused')]};
+  const x=map[st]||map.absent; return `<span class="badge ${x[0]}">${x[1]}</span>`;
+}
+function renderAttendanceTab(c,isInstr){
+  const sessions=appState.attendance.filter(a=>a.courseId===c.id).sort((a,b)=>b.date.localeCompare(a.date));
+  if(!isInstr){
+    const me=appState.currentUser.id;
+    const mine=sessions.map(s=>({date:s.date,status:s.records[me]||'absent'}));
+    const attended=mine.filter(x=>x.status==='present'||x.status==='late').length;
+    const rate=mine.length?Math.round(attended/mine.length*100):100;
+    return `
+      <div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-label">${t('attendanceRate')}</div><div class="stat-value" style="color:${rate>=75?'var(--success)':'var(--danger)'};">${rate}%</div></div>
+          <div class="stat-card"><div class="stat-label">${t('sessions')}</div><div class="stat-value">${mine.length}</div></div>
+        </div>
+        <div class="table-wrap"><table><thead><tr><th>${t('attendanceDate')}</th><th>${t('state')}</th></tr></thead><tbody>
+          ${mine.length?mine.map(x=>`<tr><td>${x.date}</td><td>${attBadge(x.status)}</td></tr>`).join(''):`<tr><td colspan="2" class="text-muted" style="text-align:center;">${t('emptyAttendance')}</td></tr>`}
+        </tbody></table></div>
+      </div>`;
+  }
+  const students=c.studentIds.map(id=>getUser(id)).filter(Boolean);
+  const today=new Date().toISOString().slice(0,10);
+  return `
+    <div>
+      <div class="card" style="margin-bottom:20px;">
+        <h4 style="margin-bottom:12px;">${t('takeAttendance')}</h4>
+        <div class="form-group"><label>${t('attendanceDate')}</label><input type="date" id="attDate" value="${today}" style="max-width:200px;"></div>
+        <div class="table-wrap"><table><thead><tr><th>${t('name')}</th><th>${t('state')}</th></tr></thead><tbody>
+          ${students.map(s=>`<tr><td style="font-weight:700;">${s.name}</td><td>
+            <select class="att-select" data-sid="${s.id}" style="max-width:160px;padding:6px;">
+              <option value="present">${t('present')}</option>
+              <option value="absent">${t('absent')}</option>
+              <option value="late">${t('late')}</option>
+              <option value="excused">${t('excused')}</option>
+            </select></td></tr>`).join('')}
+        </tbody></table></div>
+        <div style="margin-top:12px;"><button class="btn btn-primary" onclick="saveAttendance('${c.id}')">${t('saveAttendance')}</button></div>
+      </div>
+      <h4 style="margin-bottom:12px;">${t('sessions')}</h4>
+      ${sessions.length?sessions.map(s=>`
+        <div class="list-item">
+          <div style="flex:1;font-weight:700;">${s.date}</div>
+          <div class="text-sm text-muted">${Object.values(s.records).filter(v=>v==='present').length}/${c.studentIds.length} ${t('present')}</div>
+        </div>`).join(''):`<div class="text-muted text-sm">${t('emptyAttendance')}</div>`}
+    </div>`;
+}
+function saveAttendance(cid){
+  const date=document.getElementById('attDate')?.value; if(!date){showToast('Required');return;}
+  const records={};
+  document.querySelectorAll('.att-select').forEach(sel=>records[sel.dataset.sid]=sel.value);
+  const existing=appState.attendance.find(a=>a.courseId===cid&&a.date===date);
+  if(existing) existing.records=records;
+  else appState.attendance.push({id:genId(),courseId:cid,date,records});
+  saveState(); showToast(t('save')); render();
+}
+
+/* ---------- Exam Question Builder ---------- */
+function renderExamEdit(view){
+  const e=getExam(view.examId); if(!e) return `<div>${t('noData')}</div>`;
+  const c=getCourse(e.courseId);
+  if(appState.currentUser.role!=='instructor'||c.instructorId!==appState.currentUser.id) return `<div>${t('noData')}</div>`;
+  const total=e.questions.reduce((s,q)=>s+q.points,0);
+  const typeLabel={single:t('typeSingle'),truefalse:t('typeTF'),short:t('typeShort'),essay:t('typeEssay')};
+  return `
+    <div>
+      <button class="btn btn-sm btn-ghost" onclick="goTo('course',{courseId:'${c.id}',tab:'exams'})">${lang==='ar'?'← رجوع':'← Back'}</button>
+      <div class="card" style="margin-top:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <div><h2>${e.title}</h2><div class="text-sm text-muted">${c.code} · ${e.questions.length} ${t('question')} · ${total} ${t('points')}</div></div>
+          <button class="btn btn-primary" onclick="openAddQuestionModal('${e.id}')">${svgIcon('plus',18)} ${t('addQuestion')}</button>
+        </div>
+      </div>
+      <div style="margin-top:16px;">
+        ${e.questions.length?e.questions.map((q,i)=>`
+          <div class="card" style="margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start;">
+              <div style="flex:1;">
+                <div style="font-weight:700;margin-bottom:6px;">${i+1}. ${q.text}</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <span class="badge badge-navy">${typeLabel[q.type]||q.type}</span>
+                  <span class="badge badge-teal">${q.points} ${t('points')}</span>
+                </div>
+                ${q.type==='single'?`<div class="text-sm" style="margin-top:8px;">${q.options.map(o=>`<div>${o.id===q.correctAnswer?'✅':'▫️'} ${o.text}</div>`).join('')}</div>`:''}
+                ${q.type==='truefalse'?`<div class="text-sm text-muted" style="margin-top:8px;">${t('correctAnswer')}: ${q.correctAnswer?t('yes'):t('no')}</div>`:''}
+                ${q.type==='short'?`<div class="text-sm text-muted" style="margin-top:8px;">${t('correctAnswer')}: ${q.correctAnswer}</div>`:''}
+              </div>
+              <button class="btn btn-sm btn-danger" onclick="deleteQuestion('${e.id}','${q.id}')">${svgIcon('trash',14)}</button>
+            </div>
+          </div>
+        `).join(''):`<div class="text-muted" style="text-align:center;padding:40px;">${t('noQuestions')}</div>`}
+      </div>
+    </div>`;
+}
+function openAddQuestionModal(eid){
+  openModal(`
+    <div class="form-group"><label>${t('itemType')}</label><select id="qType" onchange="toggleQFields()">
+      <option value="single">${t('typeSingle')}</option>
+      <option value="truefalse">${t('typeTF')}</option>
+      <option value="short">${t('typeShort')}</option>
+      <option value="essay">${t('typeEssay')}</option>
+    </select></div>
+    <div class="form-group"><label>${t('questionText')}</label><textarea id="qText" rows="2"></textarea></div>
+    <div class="form-group"><label>${t('points')}</label><input type="number" id="qPoints" value="1" min="0.5" step="0.5"></div>
+    <div id="qSingleWrap">
+      ${[1,2,3,4].map(n=>`<div class="form-group"><label>${t('option')} ${n}</label><input type="text" id="qOpt${n}"></div>`).join('')}
+      <div class="form-group"><label>${t('correctAnswer')}</label><select id="qCorrectOpt">${[1,2,3,4].map(n=>`<option value="${n}">${t('option')} ${n}</option>`).join('')}</select></div>
+    </div>
+    <div id="qTFWrap" style="display:none;" class="form-group"><label>${t('correctAnswer')}</label><select id="qTF"><option value="true">${t('yes')}</option><option value="false">${t('no')}</option></select></div>
+    <div id="qShortWrap" style="display:none;" class="form-group"><label>${t('correctAnswer')}</label><input type="text" id="qShort"></div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-primary" onclick="addQuestion('${eid}')">${t('addQuestion')}</button></div>
+  `);
+}
+function toggleQFields(){
+  const v=document.getElementById('qType').value;
+  document.getElementById('qSingleWrap').style.display=v==='single'?'block':'none';
+  document.getElementById('qTFWrap').style.display=v==='truefalse'?'block':'none';
+  document.getElementById('qShortWrap').style.display=v==='short'?'block':'none';
+}
+function addQuestion(eid){
+  const e=getExam(eid); if(!e) return;
+  const type=document.getElementById('qType').value;
+  const text=document.getElementById('qText').value.trim();
+  const points=parseFloat(document.getElementById('qPoints').value)||1;
+  if(!text){showToast('Required');return;}
+  const q={id:genId(),examId:eid,type,text,points};
+  if(type==='single'){
+    const opts=[];
+    [1,2,3,4].forEach(n=>{const v=document.getElementById('qOpt'+n).value.trim(); if(v) opts.push({id:'o'+n,text:v});});
+    if(opts.length<2){showToast(lang==='ar'?'أدخل خيارين على الأقل':'Enter at least 2 options');return;}
+    q.options=opts;
+    const sel='o'+document.getElementById('qCorrectOpt').value;
+    if(!opts.some(o=>o.id===sel)){showToast(lang==='ar'?'الإجابة الصحيحة يجب أن تكون خياراً معبأً':'Correct answer must be a filled option');return;}
+    q.correctAnswer=sel;
+  }
+  if(type==='truefalse') q.correctAnswer=document.getElementById('qTF').value==='true';
+  if(type==='short'){
+    const ca=document.getElementById('qShort').value.trim();
+    if(!ca){showToast('Required');return;}
+    q.correctAnswer=ca; q.tolerance='low';
+  }
+  e.questions.push(q);
+  saveState(); modalHtml=''; goTo('examEdit',{examId:eid});
+}
+function deleteQuestion(eid,qid){
+  if(!confirm(t('areYouSure'))) return;
+  const e=getExam(eid); if(!e) return;
+  e.questions=e.questions.filter(q=>q.id!==qid);
+  saveState(); render();
+}
+
+/* ============================================
+   SECTION 7: TIMERS
+   ============================================ */
+let countdownInterval;
+function startCountdowns(){
+  if(countdownInterval) clearInterval(countdownInterval);
+  const tick=()=>{
+    document.querySelectorAll('[data-countdown]').forEach(el=>{
+      const target=new Date(el.dataset.countdown);
+      const diff=target-new Date();
+      if(diff<=0){el.textContent=t('overdue'); el.classList.add('text-danger'); return;}
+      const h=Math.floor(diff/36e5), m=Math.floor((diff%36e5)/6e4), s=Math.floor((diff%6e4)/1000);
+      el.textContent=`${h}h ${m}m ${s}s`;
+    });
+    const timerEl=document.getElementById('examTimer');
+ if(timerEl && currentView.name==='examTake'){
+      const e=getExam(currentView.examId);
+      const att=getAttempt(e.id,appState.currentUser.id);
+      if(att && !att.isSubmitted){
+        const end=new Date(att.startedAt).getTime()+e.durationMinutes*60000;
+        const left=end-Date.now();
+        if(left<=0){timerEl.textContent='00:00'; submitExam(e.id);}
+ else{const m=Math.floor(left/60000), s=Math.floor((left%60000)/1000); timerEl.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
+      }
+    }
+  };
+  tick(); countdownInterval=setInterval(tick,1000);
+}
+
+/* ============================================
+   SECTION 8: INIT
+   ============================================ */
+loadState();
+render();
+</script>
+</body>
+</html>
